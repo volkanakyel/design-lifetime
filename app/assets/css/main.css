@@ -67,9 +67,6 @@ html, body, #__nuxt { width: 100%; height: 100%; margin: 0; overflow: hidden; ba
 .year-readout .rolling-digits { font-size: max(16px, 2.22222cqw); line-height: 1.5; letter-spacing: -.025em; }
 .year-label { top: 7.40741cqw; transform: translateX(-50%); font-size: max(9px, 1.11111cqw); color: #69696e; line-height: 1.5; }
 .era-year { color: #99999e; }
-.time-caption { height: max(18px, 2.22222cqw); margin-top: .37037cqw; font-size: max(10px, 1.11111cqw); letter-spacing: .17em; color: #929292; }
-.era-caption, .between-caption { position: absolute; inset: 0; white-space: nowrap; }
-.between-caption { opacity: 0; letter-spacing: .03em; }
 .capture-hidden, .capture-hidden * { cursor: none !important; }
 .capture-hidden .focus-cue { opacity: 0; }
 @media (max-width: 600px) {
@@ -78,7 +75,6 @@ html, body, #__nuxt { width: 100%; height: 100%; margin: 0; overflow: hidden; ba
   .time-thumb { top: 38.18px; }
   .year-readout { top: 0; }
   .year-label { top: 58px; }
-  .time-caption { margin-top: 4px; }
 }
 @media (forced-colors: active) {
   .focus-cue, .year-readout::after { background: Highlight; forced-color-adjust: none; }

@@ -113,10 +113,6 @@ onBeforeUnmount(() => dispose?.())
           <span class="time-thumb" data-thumb />
         </div>
       </div>
-      <div class="time-caption relative text-center" aria-hidden="true">
-        <span class="era-caption" data-era-caption>POTENTIOMETER</span>
-        <span class="between-caption font-mono tabular-nums" data-between-caption />
-      </div>
     </section>
     <p id="dial-instructions" class="sr-only">Turn around the dial or drag vertically from its center. Scroll or use arrow keys to adjust by one. Shift and an arrow adjust by ten. Home and End set the limits.</p>
     <p id="time-instructions" class="sr-only">Drag the timeline to change year. Arrow keys adjust by one year. Shift and an arrow jump to the next era. R starts or stops the 17.6 second recording loop. H hides the timeline and cursor. M toggles sound. Keys 1, 2 and 3 select 1974, 2011 and 2026.</p>

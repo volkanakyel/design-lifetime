@@ -1,7 +1,7 @@
 /** Short mechanical voices, rendered once at the device sample rate. */
 export const SOUND = Object.freeze({
   plastic: { seconds: .010, frequency: 1180, q: .68, gain: .026, seed: 2011 },
-  ceramic: { seconds: .0035, frequency: 3200, q: 1.15, gain: .032, seed: 2026 },
+  ceramic: { seconds: .0035, frequency: 3200, q: 1.15, gain: .040, seed: 2026 },
   year: { seconds: .012, frequency: 4400, q: .9, gain: .012, seed: 52 },
   era: { seconds: .024, frequency: 1750, q: .8, gain: .026, seed: 3 },
 })

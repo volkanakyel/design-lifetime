@@ -295,7 +295,7 @@ test('old dial uses quiet friction and contact haptics; later voices use distinc
     h.api.year(2026); h.advance(200); h.key('Home')
     assert.ok(h.voices.length > firstVoice)
     for (const voice of h.voices) {
-      assert.ok(voice.gain <= .032)
+      assert.ok(voice.gain <= .040)
       assert.equal(voice.samples[0], 0)
       assert.equal(voice.samples.at(-1), 0)
     }

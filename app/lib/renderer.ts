@@ -14,7 +14,7 @@ export function createRenderer(root: HTMLElement, reduced: () => boolean) {
     pointerPosition: $('[data-pointer-position]'), pointerLength: $('[data-pointer-length]'), pointer: $('[data-pointer]'), pointerShadow: $('[data-pointer-shadow]'),
     arc: $('[data-active-arc]'), arcA: $('[data-arc-a]'), arcB: $('[data-arc-b]'),
     grainRotor: $('[data-grain-rotor]'), knurlRotor: $('[data-knurl-rotor]'), pointerRotor: $('[data-pointer-rotor]'),
-    readout: $('[data-readout]'), timePosition: $('[data-time-position]'), eraCaption: $('[data-era-caption]'), betweenCaption: $('[data-between-caption]'),
+    readout: $('[data-readout]'), timePosition: $('[data-time-position]'),
     dial: $('.instrument'), timeline: $('.time-control'),
   }
   const printed = all('[data-printed]'), ledScale = all('[data-led-scale]'), tickScale = all('[data-tick-scale]'), leds = all('[data-led]')
@@ -116,17 +116,9 @@ export function createRenderer(root: HTMLElement, reduced: () => boolean) {
       attr(n.timeline, 'aria-valuenow', String(integer))
       attr(n.timeline, 'aria-valuetext', `${integer}, ${name}`)
       attr(n.dial, 'aria-valuetext', `${Math.round(lastValue)}, ${integer}`)
-      if (integer !== lastIntegerYear || force) n.betweenCaption.textContent = String(integer)
       lastIntegerYear = integer
     }
-    if (lastCaption !== era || force) {
-      // One caption element; no material layer participates in this text crossfade.
-      if (era >= 0) n.eraCaption.textContent = ERA_NAMES[era]!
-      const duration = force ? 0 : Math.min(motion.duration.sm, reduced() ? 150 : Infinity) / 1000
-      gsap.to(n.eraCaption, { opacity: era >= 0 ? 1 : 0, duration })
-      gsap.to(n.betweenCaption, { opacity: era >= 0 ? 0 : 1, duration })
-      lastCaption = era
-    }
+    lastCaption = era
   }
   return { morph, value, year, digits: valueDigits, yearDigits }
 }
