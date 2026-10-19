@@ -1,0 +1,9 @@
+node_modules/
+.nuxt/
+.output/
+dist
+.pnpm-store/
+.playwright/
+test-results/
+playwright-report/
+.DS_Store
