@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0B0B0C">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="The Life of a Switch. One switch, sixty-one years of touch. Episode 02 of The Life of a ___.">
+  <title>The Life of a Switch — Episode 02</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/geist/v5/gyBhhwUxId8gMGYQMKR3pzfaWI_RnOMImpna6VEdtaiL.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/geistmono/v6/or3yQ6H-1_WfwkMZI_qYPLs1a-t7PU0AbeE9KK5U5Cl4PuCTfNg.woff2">
+  <style>
+    @font-face{font-family:Geist;src:url(https://fonts.gstatic.com/s/geist/v5/gyBhhwUxId8gMGYQMKR3pzfaWI_RnOMImpna6VEdtaiL.woff2) format("woff2");font-weight:400;font-display:optional}
+    @font-face{font-family:"Geist Mono";src:url(https://fonts.gstatic.com/s/geistmono/v6/or3yQ6H-1_WfwkMZI_qYPLs1a-t7PU0AbeE9KK5U5Cl4PuCTfNg.woff2) format("woff2");font-weight:400;font-display:optional}
+    @font-face{font-family:"Geist Fallback";src:local("Arial");size-adjust:100.3%;ascent-override:100%;descent-override:25%;line-gap-override:0%}
+    @font-face{font-family:"Mono Fallback";src:local("Courier New");size-adjust:100%;ascent-override:100%;descent-override:25%;line-gap-override:0%}
+    :root{
+      --ease-out:cubic-bezier(0.23,1,0.32,1);--ease-in-out:cubic-bezier(0.65,0,0.35,1);
+      --dur-press:150ms;--dur-sm:180ms;--dur-md:240ms;--dur-lg:320ms;
+      --ink:#0B0B0C;--paper:#F2F2F2;--muted:#86868b;--track:#2A2A2D;--accent:#FF5A1F;
+      font-family:Geist,"Geist Fallback",Arial,sans-serif;color:var(--paper);background:var(--ink);color-scheme:dark
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--ink)}
+    body{display:grid;place-items:center;-webkit-tap-highlight-color:transparent}
+    button{font:inherit;color:inherit}
+    .frame{position:relative;width:min(100vw,80svh);aspect-ratio:4/5;container-type:inline-size;isolation:isolate}
+    h1{position:absolute;left:10%;top:11.111111%;width:80%;margin:0;text-align:center;font-size:3.518519cqw;font-weight:400;letter-spacing:-.045em;line-height:1.15;color:#d5d5d5}
+    .instrument{position:absolute;left:20.37037%;top:23.703704%;width:59.259259%;aspect-ratio:8/7;outline:none;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab}
+    .instrument:active{cursor:grabbing}
+    .instrument svg{display:block;width:100%;height:100%;overflow:visible;pointer-events:none}
+    svg g,svg rect,svg circle,svg path{transform-origin:0 0}
+    .focus-cue{position:absolute;left:calc(50% - 14px);bottom:-22px;width:28px;height:2px;background:var(--accent);opacity:0}
+    .instrument:focus-visible .focus-cue{opacity:1}
+    .timeline{position:absolute;left:14%;top:74.074074%;width:72%;height:15.555556%}
+    .time-control{position:absolute;inset:0 0 auto;height:12.037037cqw;min-height:44px;touch-action:none;user-select:none;-webkit-user-select:none;outline:none;cursor:ew-resize}
+    .ruler{position:absolute;top:4.444444cqw;left:0;width:100%;height:6.481481cqw;overflow:visible;pointer-events:none}
+    .hairline{vector-effect:non-scaling-stroke}
+    .time-position{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
+    .time-thumb{position:absolute;left:0;top:4.444444cqw;width:1.111111cqw;height:1.111111cqw;min-width:7px;min-height:7px;border-radius:50%;background:var(--paper);transform:translate(-50%,-50%)}
+    .year-readout{position:absolute;top:0;left:0;width:9.259259cqw;height:3.518519cqw;transform:translateX(-50%);display:flex;justify-content:center;font:400 2.407407cqw/3.518519cqw "Geist Mono","Mono Fallback",monospace;letter-spacing:-.06em;overflow:hidden}
+    .digit{position:relative;display:block;width:.61em;height:100%}
+    .digit span{position:absolute;inset:0;text-align:center}
+    .digit .old{opacity:0}
+    .time-control:focus-visible .time-thumb{outline:2px solid var(--accent);outline-offset:5px}
+    .year-label{position:absolute;top:8.148148cqw;transform:translateX(-50%);font:400 1.203704cqw/1.4 "Geist Mono","Mono Fallback",monospace;color:var(--muted);font-variant-caps:all-small-caps;pointer-events:none}
+    .era-name{position:absolute;top:14.444444cqw;left:0;width:100%;height:2.222222cqw;text-align:center;font:400 1.203704cqw/1.5 "Geist Mono","Mono Fallback",monospace;letter-spacing:.14em;color:var(--muted)}
+    .era-name span{position:absolute;inset:0}
+    .toolbar{position:absolute;left:14%;bottom:5.185185%;width:72%;display:flex;justify-content:center;gap:2.777778cqw}
+    .toolbar button{border:0;padding:8px 0;background:none;min-height:44px;cursor:pointer;color:#78787e;font-size:1.111111cqw;line-height:1.5;transition:opacity var(--dur-press) var(--ease-out),transform var(--dur-press) var(--ease-out)}
+    .toolbar kbd{font:400 1.018519cqw "Geist Mono","Mono Fallback",monospace;color:#a0a0a5;margin-right:.648148cqw}
+    .toolbar button:active{transform:scale(.97)}
+    .toolbar button:focus-visible{outline:1px solid var(--accent);outline-offset:5px;border-radius:2px}
+    .toolbar button[aria-pressed=true]{color:var(--paper)}
+    .toolbar .record-mark{display:inline-block;width:.462963cqw;height:.462963cqw;margin-right:.648148cqw;border-radius:50%;background:var(--accent);opacity:0}
+    .toolbar button[aria-pressed=true] .record-mark{opacity:1}
+    .controls-hidden .timeline,.controls-hidden .toolbar{opacity:0;pointer-events:none}
+    .controls-hidden,.controls-hidden *{cursor:none}
+    .controls-hidden .focus-cue{opacity:0}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media(hover:hover) and (pointer:fine){.toolbar button:hover{color:var(--paper)}}
+    @media(max-width:600px){.toolbar button{font-size:max(9px,1.111111cqw)}.toolbar kbd{font-size:9px}.year-label,.era-name{font-size:max(9px,1.203704cqw)}}
+    @media(prefers-reduced-motion:reduce){.toolbar button{transition:opacity var(--dur-press) var(--ease-out)}.toolbar button:active{transform:none}}
+    @media(forced-colors:active){.time-thumb{background:CanvasText}.focus-cue{background:Highlight}.instrument svg{forced-color-adjust:none}}
+  </style>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" onload="window.switchClockReady?.()" onerror="window.switchClockUnavailable?.()"></script>
+</head>
+<body>
+<main class="frame" aria-label="The Life of a Switch, episode 2">
+  <h1>The life of a switch</h1>
+  <div class="instrument" role="switch" aria-label="Switch" aria-checked="false" aria-describedby="switch-help" aria-keyshortcuts="Space Enter" tabindex="0">
+    <!-- One base, one socket, one actuator. These nodes never get replaced.
+         Rounded geometry is a union of transformed primitives, not an rx/d/size tween. -->
+    <svg viewBox="0 0 640 560" aria-hidden="true">
+      <defs>
+        <linearGradient id="steel" x1=".05" y1="0" x2=".95" y2="1">
+          <stop stop-color="#babbbb"/><stop offset=".28" stop-color="#a8a9a8"/><stop offset=".6" stop-color="#b1b2b1"/><stop offset="1" stop-color="#8b8c8c"/>
+        </linearGradient>
+        <linearGradient id="plate-edge" x1="0" y1="0" x2=".6" y2="1">
+          <stop stop-color="#d7d8d7"/><stop offset=".035" stop-color="#a3a4a4"/><stop offset=".5" stop-color="#656766"/><stop offset=".98" stop-color="#444545"/><stop offset="1" stop-color="#7e7f7f"/>
+        </linearGradient>
+        <radialGradient id="plate-light" cx=".12" cy=".05" r="1">
+          <stop stop-color="#fff" stop-opacity=".13"/><stop offset=".7" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#131515" stop-opacity=".06"/>
+        </radialGradient>
+        <pattern id="brush" width="311" height="31.7" patternUnits="userSpaceOnUse">
+          <path d="M0 .4h311M26 2.1h187M0 4.35h267M78 6.4h233M0 9.15h209M42 10.9h269M0 13.55h311M21 15.2h211M0 18.1h279M106 20.45h205M0 23.1h311M38 25.3h263M0 28.05h248M93 30.8h218" stroke="#fff" stroke-opacity=".065" stroke-width=".33"/>
+          <path d="M0 1.35h202M64 3.6h247M0 5.45h311M11 8h247M0 10.3h280M72 12.2h239M0 14.6h196M31 17h280M0 19.35h311M19 22.05h211M0 24.4h286M91 26.6h220M0 29.15h311" stroke="#1e2021" stroke-opacity=".05" stroke-width=".28"/>
+        </pattern>
+        <linearGradient id="chrome" x1="0" y1="0" x2="1" y2=".02">
+          <stop stop-color="#38393a"/><stop offset=".07" stop-color="#848787"/><stop offset=".16" stop-color="#d0d1d1"/>
+          <stop offset=".25" stop-color="#f6f6f5"/><stop offset=".35" stop-color="#e4e5e3"/><stop offset=".42" stop-color="#aeb0af"/>
+          <stop offset=".49" stop-color="#676968"/><stop offset=".53" stop-color="#303233"/><stop offset=".69" stop-color="#262828"/>
+          <stop offset=".75" stop-color="#5e6162"/><stop offset=".87" stop-color="#c6c8c8"/><stop offset=".95" stop-color="#808382"/><stop offset="1" stop-color="#434646"/>
+        </linearGradient>
+        <linearGradient id="chrome-height" x1="0" y1="0" x2=".13" y2="1">
+          <stop stop-color="#e5e7e5" stop-opacity=".2"/><stop offset=".25" stop-color="#fff" stop-opacity="0"/>
+          <stop offset=".48" stop-color="#fff" stop-opacity="0"/><stop offset=".56" stop-color="#101213" stop-opacity=".25"/>
+          <stop offset=".75" stop-color="#101213" stop-opacity=".04"/><stop offset="1" stop-color="#ebebe9" stop-opacity=".24"/>
+        </linearGradient>
+        <linearGradient id="hardware" x1=".06" y1=".03" x2=".94" y2=".9">
+          <stop stop-color="#7d7f7f"/><stop offset=".22" stop-color="#dfe0df"/><stop offset=".35" stop-color="#bfc1c0"/>
+          <stop offset=".46" stop-color="#979998"/><stop offset=".52" stop-color="#5e6060"/><stop offset=".7" stop-color="#353837"/>
+          <stop offset=".83" stop-color="#9d9f9e"/><stop offset="1" stop-color="#616564"/>
+        </linearGradient>
+        <linearGradient id="screw-face" x1=".15" y1="0" x2=".85" y2="1">
+          <stop stop-color="#e3e4e2"/><stop offset=".28" stop-color="#c4c5c4"/><stop offset=".5" stop-color="#9a9c9b"/><stop offset="1" stop-color="#666868"/>
+        </linearGradient>
+        <radialGradient id="socket-material" cx=".37" cy=".25" r=".77">
+          <stop stop-color="#c9cac9"/><stop offset=".25" stop-color="#848886"/><stop offset=".52" stop-color="#3c403f"/><stop offset=".78" stop-color="#202323"/><stop offset="1" stop-color="#090a0b"/>
+        </radialGradient>
+        <radialGradient id="tip-highlight" cx=".33" cy=".2" r=".8">
+          <stop stop-color="#fafaf8" stop-opacity=".9"/><stop offset=".3" stop-color="#e5e6e4" stop-opacity=".3"/><stop offset=".65" stop-color="#9fa2a0" stop-opacity=".12"/><stop offset="1" stop-color="#1b1f1f" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="contact-shade"><stop stop-color="#000" stop-opacity=".8"/><stop offset=".65" stop-color="#000" stop-opacity=".55"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+        <filter id="plate-shadow-filter" x="-.12" y="-.1" width="1.24" height="1.22"><feGaussianBlur stdDeviation="2.2"/></filter>
+        <filter id="cast-softness" x="-.5" y="-.2" width="2" height="1.6"><feGaussianBlur stdDeviation="1.6"/></filter>
+        <linearGradient id="recess" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#020304"/><stop offset=".12" stop-color="#181b20"/><stop offset=".65" stop-color="#383b40"/><stop offset="1" stop-color="#55585c"/></linearGradient>
+        <linearGradient id="white" x1="0" y1="0" x2=".2" y2="1"><stop stop-color="#fff"/><stop offset=".49" stop-color="#fafafa"/><stop offset=".52" stop-color="#f1f1f1"/><stop offset="1" stop-color="#c6c8cb"/></linearGradient>
+        <linearGradient id="blue" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#1762b4"/><stop offset=".52" stop-color="#2886e6"/><stop offset="1" stop-color="#61aaf0"/></linearGradient>
+        <linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff" stop-opacity=".45"/><stop offset=".48" stop-color="#fff" stop-opacity=".09"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+        <linearGradient id="inner-shade" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#000" stop-opacity=".7"/><stop offset=".18" stop-color="#000" stop-opacity=".1"/><stop offset=".75" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".22"/></linearGradient>
+        <linearGradient id="liquid-reflection" x1=".1" y1="0" x2=".85" y2="1">
+          <stop stop-color="#fff" stop-opacity=".8"/><stop offset=".22" stop-color="#fff" stop-opacity=".12"/><stop offset=".66" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".38"/>
+        </linearGradient>
+        <clipPath id="base-clip" clipPathUnits="userSpaceOnUse">
+          <rect data-base-shape x="-.5" y="-.5" width="1" height="1" transform="scale(270 398)"/>
+          <rect data-base-shape x="-.5" y="-.5" width="1" height="1" transform="scale(286 382)"/>
+          <path data-base-shape d="M0 0H1A1 1 0 0 1 0 1Z" transform="translate(-135 -191) scale(-8 -8)"/><path data-base-shape d="M0 0H1A1 1 0 0 1 0 1Z" transform="translate(135 -191) scale(8 -8)"/>
+          <path data-base-shape d="M0 0H1A1 1 0 0 1 0 1Z" transform="translate(-135 191) scale(-8 8)"/><path data-base-shape d="M0 0H1A1 1 0 0 1 0 1Z" transform="translate(135 191) scale(8 8)"/>
+        </clipPath>
+        <mask id="thumb-mask" maskUnits="userSpaceOnUse" x="-200" y="-200" width="400" height="400" style="mask-type:alpha" fill="#fff">
+          <rect data-thumb-shape x="-.5" y="-.5" width="1" height="1" transform="scale(24 95)"/>
+          <path data-thumb-shape d="M0 0V1H1Z" transform="translate(11 -47.5) scale(8 95)"/>
+          <path data-thumb-shape d="M0 0V1H1Z" transform="translate(-11 -47.5) scale(-8 95)"/>
+          <path data-thumb-shape d="M-1 0A1 1 0 0 1 1 0Z" transform="translate(0 -46.5) scale(12)"/>
+          <path data-thumb-shape d="M-1 0A1 1 0 0 0 1 0Z" transform="translate(0 46.5) scale(19)"/>
+        </mask>
+        <g id="screw">
+          <circle cy=".8" r="10.1" fill="#303332" opacity=".55"/>
+          <circle r="9.6" fill="url(#hardware)" stroke="#6e7170" stroke-width=".65"/>
+          <circle cy="-.3" r="7.9" fill="url(#screw-face)" stroke="#d8d9d7" stroke-opacity=".65" stroke-width=".4"/>
+          <path d="M-7.5-1.5A7.7 7.7 0 0 1 4.2-6.4" fill="none" stroke="#f0f0ee" stroke-opacity=".6" stroke-width=".55"/>
+        </g>
+      </defs>
+      <g transform="translate(320 280)" id="object">
+        <g id="base-shadow" transform="translate(3 6)" opacity=".65" filter="url(#plate-shadow-filter)"><g clip-path="url(#base-clip)"><rect x="-320" y="-280" width="640" height="560" fill="#000"/></g></g>
+        <g id="base" clip-path="url(#base-clip)">
+          <rect x="-320" y="-280" width="640" height="560" fill="#2A2A2D"/>
+          <g id="metal">
+            <rect x="-320" y="-280" width="640" height="560" fill="url(#plate-edge)"/>
+            <g transform="scale(.987 .99)" clip-path="url(#base-clip)">
+              <g id="plate-face">
+                <rect x="-143" y="-199" width="286" height="398" fill="url(#steel)"/>
+                <rect x="-320" y="-280" width="640" height="560" fill="url(#brush)"/>
+                <rect x="-143" y="-199" width="286" height="398" fill="url(#plate-light)"/>
+              </g>
+            </g>
+          </g>
+          <rect id="well" x="-170" y="-78" width="340" height="156" fill="url(#recess)" opacity="0"/>
+          <!-- A paint dot grows into the fill; all color layers share its contour. -->
+          <g id="color" transform="translate(46 -140) scale(.027 .055)" opacity=".72">
+            <rect x="-170" y="-78" width="340" height="156" rx="78" fill="#b93122"/>
+            <rect id="blue-color" x="-170" y="-78" width="340" height="156" rx="78" fill="url(#blue)" opacity="0"/>
+            <rect id="orange-color" x="-170" y="-78" width="340" height="156" rx="78" fill="#FF5A1F" opacity="0"/>
+          </g>
+          <rect id="track-gloss" x="-170" y="-78" width="340" height="156" fill="url(#gloss)" opacity="0"/>
+          <rect id="inner-shadow" x="-170" y="-78" width="340" height="156" fill="url(#inner-shade)" opacity="0"/>
+          <g id="on-label" transform="translate(0 -140)" fill="#343839" font-family="Geist Mono, Mono Fallback, monospace" font-size="19" text-anchor="middle" style="filter:drop-shadow(0px .65px 0px #eef0ed6b)">
+            <text x="-8" y="8" data-letter="0">O</text><text x="8" y="8" data-letter="1">N</text>
+          </g>
+          <g id="off-label" transform="translate(0 148)" fill="#343839" font-family="Geist Mono, Mono Fallback, monospace" font-size="19" text-anchor="middle" style="filter:drop-shadow(0px .65px 0px #eef0ed6b)">
+            <text x="-16" y="8" data-letter="0">O</text><text x="0" y="8" data-letter="1">F</text><text x="16" y="8" data-letter="2">F</text>
+          </g>
+        </g>
+        <g id="screws">
+          <g id="screw-top" transform="translate(0 -177)"><use href="#screw"/><g transform="rotate(-21)"><path d="M-6.8-1.15H6.8V1.15H-6.8Z" fill="#333736"/><path d="M-6.6 1.2H6.6" stroke="#dbdcda" stroke-width=".7"/><path d="M-6.7-1.2H6.7" stroke="#121515" stroke-opacity=".7" stroke-width=".4"/></g></g>
+          <g id="screw-bottom" transform="translate(0 177)"><use href="#screw"/><g transform="rotate(34)"><path d="M-6.8-1.15H6.8V1.15H-6.8Z" fill="#333736"/><path d="M-6.6 1.2H6.6" stroke="#dbdcda" stroke-width=".7"/><path d="M-6.7-1.2H6.7" stroke="#121515" stroke-opacity=".7" stroke-width=".4"/></g></g>
+        </g>
+        <g id="socket">
+          <ellipse cx="3" cy="5" rx="59" ry="57" fill="url(#contact-shade)" opacity=".7"/>
+          <circle cy="1.5" r="51.5" fill="#5c5f5d" stroke="#363938" stroke-width=".8"/>
+          <circle r="51" fill="url(#hardware)" stroke="#bec0be" stroke-width=".45"/>
+          <circle r="48.2" fill="none" stroke="#e4e5e3" stroke-opacity=".35" stroke-width=".55"/>
+          <path d="M-25-40H25L50 3 25 46H-25L-50 3Z" fill="#333736"/>
+          <path d="M-25-43.3H25L50 0 25 43.3H-25L-50 0Z" fill="url(#hardware)" stroke="#626664" stroke-width=".6"/>
+          <!-- Six separately lit machined chamfers, under one fixed upper-left light. -->
+          <path d="M-25-43.3H25L23-39.5H-23Z" fill="#e7e8e6" opacity=".8"/>
+          <path d="M25-43.3 50 0H45.6L23-39.5Z" fill="#adb0ae" opacity=".8"/>
+          <path d="M50 0 25 43.3 23 39.5 45.6 0Z" fill="#313533" opacity=".8"/>
+          <path d="M25 43.3H-25L-23 39.5H23Z" fill="#636765"/>
+          <path d="M-25 43.3-50 0H-45.6L-23 39.5Z" fill="#b6b8b7" opacity=".65"/>
+          <path d="M-50 0-25-43.3-23-39.5-45.6 0Z" fill="#e5e6e4" opacity=".65"/>
+          <circle cy="1.4" r="33.8" fill="#242827" opacity=".8"/>
+          <circle r="33" fill="url(#hardware)" stroke="#cbcdcb" stroke-width=".7"/>
+          <g fill="none" stroke-width=".65">
+            <circle cy=".5" r="30.8" stroke="#444846"/><circle cy="-.45" r="30.2" stroke="#dadcda" stroke-opacity=".85"/>
+            <circle cy=".5" r="28.7" stroke="#444846"/><circle cy="-.45" r="28.1" stroke="#cdcfcc" stroke-opacity=".8"/>
+            <circle cy=".5" r="26.6" stroke="#353937"/><circle cy="-.35" r="26" stroke="#b5b8b4"/>
+          </g>
+          <circle r="23.4" fill="#1a1d1b" stroke="#626663" stroke-width="1"/>
+          <circle cy=".5" r="18.7" fill="url(#socket-material)"/>
+          <path d="M-21 3A21.2 21.2 0 0 0 20 7" fill="none" stroke="#131614" stroke-width="2.5"/>
+        </g>
+        <g id="cast-position" transform="translate(12 61)" filter="url(#cast-softness)"><g id="cast-shape" mask="url(#thumb-mask)" opacity=".4"><rect x="-200" y="-200" width="400" height="400" fill="#000"/></g></g>
+        <g id="actuator" transform="translate(0 46)">
+          <g id="stretch">
+            <g mask="url(#thumb-mask)">
+              <rect id="thumb-skin" x="-200" y="-200" width="400" height="400" fill="#f2f2f2"/>
+              <g id="thumb-light">
+                <g id="thumb-chrome">
+                  <g id="chrome-field">
+                    <rect x="-19" y="-180" width="38" height="360" fill="url(#chrome)"/>
+                    <rect x="-19" y="-80" width="38" height="160" fill="url(#chrome-height)"/>
+                    <path d="M-12-160C-14-70-9 60-11 160" fill="none" stroke="#fdfdfb" stroke-opacity=".4" stroke-width=".7"/>
+                    <path d="M14-160C12-10 16 55 14 160" fill="none" stroke="#eef0ed" stroke-opacity=".35" stroke-width=".45"/>
+                  </g>
+                </g>
+                <rect id="thumb-white" x="-100" y="-100" width="200" height="200" fill="url(#white)" opacity="0"/>
+                <rect id="thumb-gloss" x="-100" y="-100" width="200" height="200" fill="url(#gloss)" opacity="0"/>
+              </g>
+              <ellipse id="tip" cx="0" cy="0" rx="19" ry="19" transform="translate(0 49.54) scale(1 .63)" fill="url(#tip-highlight)" opacity=".85"/>
+              <g id="liquid-light" opacity="0">
+                <rect id="liquid-reflection-field" x="-200" y="-200" width="400" height="400" fill="url(#liquid-reflection)" opacity=".4"/>
+                <rect id="liquid-rim" x="-63.3" y="-79.3" width="126.6" height="158.6" rx="63.3" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="1.4"/>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+    <span class="focus-cue" aria-hidden="true"></span>
+  </div>
+  <section class="timeline" aria-label="Time machine">
+    <div class="time-control" role="slider" tabindex="0" aria-label="Year" aria-valuemin="1965" aria-valuemax="2026" aria-valuenow="1965" aria-valuetext="1965, Toggle" aria-describedby="time-help" aria-keyshortcuts="ArrowLeft ArrowRight Home End">
+      <svg class="ruler" viewBox="0 0 778 70" preserveAspectRatio="none" aria-hidden="true">
+        <path class="hairline" d="M0 0H778" stroke="#2A2A2D" stroke-width="1"/>
+        <path class="hairline" id="ticks" d="M0 12v16M25.508 12v8M51.016 12v8M76.525 12v8M102.033 12v8M127.541 12v8M153.049 12v8M178.557 12v8M204.066 12v8M229.574 12v8M255.082 12v8M280.590 12v8M306.098 12v8M331.607 12v8M357.115 12v8M382.623 12v8M408.131 12v8M433.639 12v8M459.148 12v8M484.656 12v8M510.164 12v8M535.672 12v16M561.180 12v8M586.689 12v8M612.197 12v8M637.705 12v8M663.213 12v8M688.721 12v8M714.230 12v8M739.738 12v8M765.246 12v8M778 12v16" fill="none" stroke="#3b3b3e" stroke-width="1"/>
+      </svg>
+      <span class="year-label" style="left:0" aria-hidden="true">1965</span>
+      <span class="year-label" style="left:68.852459%" aria-hidden="true">2007</span>
+      <span class="year-label" style="left:100%" aria-hidden="true">2026</span>
+      <div class="time-position" aria-hidden="true">
+        <div class="year-readout">
+          <span class="digit"><span class="old">1</span><span class="new">1</span></span>
+          <span class="digit"><span class="old">9</span><span class="new">9</span></span>
+          <span class="digit"><span class="old">6</span><span class="new">6</span></span>
+          <span class="digit"><span class="old">5</span><span class="new">5</span></span>
+        </div>
+        <span class="time-thumb"></span>
+      </div>
+    </div>
+    <div class="era-name" aria-hidden="true"><span>TOGGLE</span><span style="opacity:0">SLIDE SWITCH</span><span style="opacity:0">LIQUID SWITCH</span></div>
+  </section>
+  <div class="toolbar" aria-label="Recording controls">
+    <button id="record" aria-pressed="false" aria-label="Play recording loop"><span class="record-mark"></span><kbd>R</kbd><span id="record-text">Play loop</span></button>
+    <button id="hide" aria-label="Hide controls"><kbd>H</kbd>Hide controls</button>
+    <button id="mute" aria-pressed="false" aria-label="Mute sound"><kbd>M</kbd><span id="mute-text">Sound on</span></button>
+  </div>
+  <p id="switch-help" class="sr-only">Tap, Space or Enter to flip. Drag along the switch's travel: up and down in 1965, left and right in 2007 and 2026. Cross 55 percent to commit; release earlier to spring back.</p>
+  <p id="time-help" class="sr-only">Drag to scrub from 1965 to 2026. Arrow keys change one year. Shift and an arrow jump to the next era. Home and End jump to 1965 and 2026. R plays or stops the 15.6 second recording loop. H hides controls. M toggles sound. Escape stops playback and reveals controls.</p>
+  <p class="sr-only" role="status" aria-live="polite" id="status"></p>
+</main>
+<script>
+(() => {
+  'use strict';
+  const $ = s => document.querySelector(s);
+  const D = Object.freeze({ press:150, sm:180, md:240, lg:320 });
+  const YEARS = [1965,2007,2026], NAMES = ['Toggle','Slide switch','Liquid switch'];
+  const clamp = (v,a=0,b=1) => Math.max(a,Math.min(b,v));
+  const mix = (a,b,t) => a+(b-a)*t;
+  const smooth = (a,b,v) => { const p=clamp((v-a)/(b-a)); return p*p*(3-2*p); };
+  const yearToT = y => y<=2007 ? (y-1965)/42 : 1+(y-2007)/19;
+  // Exact CSS cubic-bezier tokens, evaluated numerically for the JS clock.
+  function bezier(x1,y1,x2,y2) {
+    const poly=(a,b,t)=>3*a*(1-t)*(1-t)*t+3*b*(1-t)*t*t+t*t*t;
+    return x=>{ if(x<=0||x>=1)return clamp(x);let lo=0,hi=1,t=x;
+      for(let i=0;i<18;i++){const v=poly(x1,x2,t);if(v<x)lo=t;else hi=t;t=(lo+hi)/2;}
+      return poly(y1,y2,t);
+    };
+  }
+  const ease={out:bezier(.23,1,.32,1),inOut:bezier(.65,0,.35,1)};
+  const frame=$('.frame'), instrument=$('.instrument'), slider=$('.time-control');
+  const object=$('#object'), timePosition=$('.time-position'), status=$('#status');
+  const el=Object.fromEntries(['base-shadow','metal','plate-face','well','color','blue-color','orange-color','track-gloss','inner-shadow','on-label','off-label','screws','screw-top','screw-bottom','socket','cast-position','cast-shape','actuator','stretch','thumb-light','thumb-chrome','chrome-field','thumb-white','thumb-gloss','thumb-skin','liquid-light','liquid-reflection-field','liquid-rim','tip'].map(id=>[id,$('#'+id)]));
+  const baseShape=[...document.querySelectorAll('[data-base-shape]')];
+  const thumbShape=[...document.querySelectorAll('[data-thumb-shape]')];
+  const letters=[...document.querySelectorAll('[data-letter]')];
+  const eraLabels=[...document.querySelectorAll('.era-name span')];
+  const digitNodes=[...document.querySelectorAll('.digit')].map(node=>({old:node.firstElementChild,next:node.lastElementChild,start:-Infinity,dir:1}));
+  const reducedQuery=matchMedia('(prefers-reduced-motion: reduce)');
+  const state={year:1965,on:false,pos:0,velocity:0,stretch:1,stretchV:0,press:0,flow:0,flowV:0,flood:0,floodSide:-1,muted:false,reduced:reducedQuery.matches,recording:false};
+  let raf=0,lastTime=0,now=0,dirty=true,disposed=false,ticking=false,yearMotion=null,snapMotion=null,floodMotion=null,pressMotion=null;
+  let drag=null,timeDrag=null,recording=null,recordClock=0,recordCycle=0,recordElapsed=0,scriptedDrag=false;
+  let lastYear=1965,lastMorph=NaN,lastPos=NaN,lastStretch=NaN,lastFlood=NaN,lastPress=NaN,lastFlow=NaN;
+  let renderedEra=0,reducedFade=null,reducedPose=0,reducedOn=false,flipId=0,pendingSettles=[];
+  let eraTarget=0,eraOpacity=[1,0,0],eraFade=null,hidden=false;
+  let frameScale=1,timelineRect={left:0,width:1};
+  const write=(node,prop,value)=>{if(node.style[prop]!==value)node.style[prop]=value;};
+  const tr=(node,value)=>write(node,'transform',value);
+  const op=(node,value)=>write(node,'opacity',String(Math.round(value*10000)/10000));
+  const fmt=n=>Math.round(n*10000)/10000;
+  function rounded(parts,w,h,r) {
+    r=Math.min(r,w/2,h/2);
+    tr(parts[0],`scale(${fmt(Math.max(.001,w-2*r))},${fmt(h)})`);
+    tr(parts[1],`scale(${fmt(w)},${fmt(Math.max(.001,h-2*r))})`);
+    for(let i=0;i<4;i++)tr(parts[i+2],`translate(${fmt((i%2?1:-1)*(w/2-r))}px,${fmt((i<2?-1:1)*(h/2-r))}px) scale(${fmt((i%2?1:-1)*r)},${fmt((i<2?-1:1)*r)})`);
+  }
+  // Pure morphology. Windows are ordered depth → material → actuator → labels → color.
+  function anatomy(t) {
+    const depth=smooth(.03,.33,t), material=smooth(.14,.74,t), actuator=smooth(.28,.82,t), labels=smooth(.48,.9,t), color=smooth(.63,1,t);
+    const d2=smooth(1.02,1.29,t),m2=smooth(1.16,1.51,t),a2=smooth(1.29,1.69,t),l2=smooth(1.49,1.88,t),c2=smooth(1.65,2,t);
+    const axis=smooth(.3,.8,t)*Math.PI/2;
+    const contour=smooth(.04,.9,t);
+    return {t,depth,material,actuator,labels,color,d2,m2,a2,l2,c2,axis,
+      width:mix(286,340,contour),height:mix(398,156,contour),radius:mix(8,78,contour),
+      thumbWidth:mix(38,132,actuator)-4*a2,neckWidth:mix(24,132,actuator)-4*a2,
+      thumbHeight:mix(124,132,actuator)+28*a2,travel:mix(46,94,actuator)-16*a2};
+  }
+  // Project the bat around its fixed ball joint. At over-center it is viewed
+  // end-on; its neck and tip reverse places without replacing the actuator.
+  function actuatorProfile(g,p) {
+    const sign=clamp(p*2-1,-1,1),tip=g.thumbWidth/2,neck=g.neckWidth/2;
+    const top=tip-(tip-neck)*clamp(-sign),bottom=tip-(tip-neck)*clamp(sign);
+    return {top,bottom,length:Math.max(0,g.thumbHeight-top-bottom)*mix(Math.abs(sign),1,g.actuator)};
+  }
+  function batShape(parts,{top,bottom,length}) {
+    // Overlap stays inside the contour and prevents antialias seams in the mask.
+    const radius=Math.min(top,bottom),delta=Math.abs(bottom-top)+1;
+    const direction=bottom>=top?1:-1,h=length+2;
+    tr(parts[0],`scale(${fmt(radius*2)},${fmt(h)})`);
+    tr(parts[1],`translate(${fmt(radius-1)}px,${fmt(-direction*h/2)}px) scale(${fmt(delta)},${fmt(direction*h)})`);
+    tr(parts[2],`translate(${-fmt(radius-1)}px,${fmt(-direction*h/2)}px) scale(${-fmt(delta)},${fmt(direction*h)})`);
+    tr(parts[3],`translate(0px,${fmt(-length/2)}px) scale(${fmt(top)})`);
+    tr(parts[4],`translate(0px,${fmt(length/2)}px) scale(${fmt(bottom)})`);
+  }
+  let geo=anatomy(0);
+  function renderObject() {
+    const t=state.reduced?renderedEra:yearToT(state.year);
+    const p=state.reduced?reducedPose:state.pos;
+    const stretch=state.reduced?1:state.stretch;
+    const press=state.reduced?0:state.press,flow=state.reduced?0:state.flow;
+    const flood=state.reduced?(reducedOn?1:0):state.flood;
+    const morph=t!==lastMorph;
+    if(!morph&&p===lastPos&&stretch===lastStretch&&flood===lastFlood&&press===lastPress&&flow===lastFlow)return;
+    if(morph) {
+      geo=anatomy(t); const g=geo;
+      rounded(baseShape,g.width,g.height,g.radius);
+      tr(el['plate-face'],`scale(${fmt(g.width/286)},${fmt(g.height/398)})`);
+      const surface=`scale(${fmt(g.width/340)},${fmt(g.height/156)})`;
+      tr(el.well,surface);tr(el['track-gloss'],surface);tr(el['inner-shadow'],surface);
+      op(el.metal,1-g.material);
+      op(el.well,g.material*(1-g.m2));
+      op(el['base-shadow'],(1-g.depth)*.65);
+      op(el['inner-shadow'],g.material*(1-g.d2));
+      op(el['track-gloss'],g.material*(1-g.m2)*.7);
+      op(el['blue-color'],g.color);
+      op(el['orange-color'],g.c2);
+      const screws=1-smooth(.12,.5,t);
+      op(el.screws,screws);
+      tr(el['screw-top'],`translate(0px,${fmt(-g.height/2+22)}px) scale(${Math.max(.001,screws)})`);
+      tr(el['screw-bottom'],`translate(0px,${fmt(g.height/2-22)}px) scale(${Math.max(.001,screws)})`);
+      const socket=1-smooth(.32,.82,t);
+      op(el.socket,socket);
+      tr(el.socket,`scale(${Math.max(.001,1-.72*g.actuator)})`);
+      op(el['thumb-chrome'],1-g.actuator);
+      op(el['thumb-white'],g.actuator*(1-g.m2));
+      op(el['thumb-gloss'],g.actuator*(1-g.m2));
+      op(el.tip,.85*(1-g.actuator));
+      tr(el['chrome-field'],`scale(${fmt((g.thumbWidth*Math.cos(g.axis)+g.thumbHeight*Math.sin(g.axis))/38)},1)`);
+      tr(el['thumb-light'],`rotate(${-g.axis*180/Math.PI}deg)`);
+      tr(el['liquid-reflection-field'],`rotate(${-g.axis*180/Math.PI}deg)`);
+      tr(el['liquid-rim'],`scale(${fmt(g.thumbWidth/128)},${fmt(g.thumbHeight/160)})`);
+      // Fixed light: highlight does not rotate along with the travel axis.
+      letters.forEach(letter=>op(letter,1-smooth(1.49+Number(letter.dataset.letter)*.07,1.74+Number(letter.dataset.letter)*.07,t)));
+      const labelLight=g.material*(1-g.l2);
+      const filter=`brightness(${fmt(1+labelLight*4.5)}) drop-shadow(0px .65px 0px rgba(238,240,237,${fmt(.42*(1-g.labels))}))`;
+      write(el['on-label'],'filter',filter);write(el['off-label'],'filter',filter);
+    }
+    const g=geo,sign=p*2-1,dx=Math.sin(g.axis),dy=-Math.cos(g.axis);
+    const profile=actuatorProfile(g,p);
+    if(morph||p!==lastPos&&g.actuator<1)batShape(thumbShape,profile);
+    const liquid=smooth(1.08,1.9,t),contact=press*liquid;
+    const lengthScale=stretch+.08*contact*(1-clamp((stretch-1)/.25));
+    const lead=flow*(lengthScale-1)*g.thumbHeight*.12*4*clamp(p)*(1-clamp(p))*liquid;
+    const x=dx*(sign*g.travel+lead),y=dy*(sign*g.travel+lead);
+    tr(el.actuator,`translate(${fmt(x)}px,${fmt(y)}px) rotate(${fmt(g.axis*180/Math.PI)}deg)`);
+    // Local Y becomes world X at 90°. Stretch toward movement, conserve area.
+    tr(el.stretch,`scale(${fmt((1+.015*contact)/Math.sqrt(lengthScale))},${fmt(lengthScale)})`);
+    const energy=clamp(contact*.75+Math.abs(stretch-1)*3+Math.abs(flow)*.18)*liquid;
+    op(el['thumb-skin'],1-energy*.16);
+    op(el['liquid-light'],energy*.65);
+    tr(el.tip,`translate(0px,${fmt(-clamp(sign,-1,1)*(profile.length/2+g.thumbWidth*.08))}px) scale(${fmt(g.thumbWidth/38)},${fmt(mix(1,.63,Math.min(1,Math.abs(sign)))*g.thumbWidth/38)})`);
+    const elevation=1+.35*(1-Math.min(1,Math.abs(sign)))*(1-g.actuator);
+    tr(el['cast-position'],`translate(${fmt(x+mix(12,5,g.actuator)*elevation*(1-g.d2))}px,${fmt(y+mix(15,5,g.actuator)*elevation*(1-g.d2))}px) rotate(${fmt(g.axis*180/Math.PI)}deg)`);
+    op(el['cast-shape'],mix(.4,.22,g.actuator)*(1-g.d2));
+    const labelShift=(p-.5)*30*g.labels;
+    tr(el['on-label'],`translate(${fmt(mix(0,-77,g.labels)+labelShift)}px,${fmt(mix(-Math.min(140,g.height/2-30),0,g.labels))}px)`);
+    tr(el['off-label'],`translate(${fmt(mix(0,77,g.labels)+labelShift)}px,${fmt(mix(Math.min(148,g.height/2-30),0,g.labels))}px)`);
+    // The red dot expands into blue, then orange; fill starts on the thumb's side.
+    const expansion=g.color,fill=clamp(flood);
+    const colorScaleX=mix(.027,Math.max(.001,fill),expansion);
+    const colorScaleY=mix(.055,1,expansion);
+    const colorX=mix(46,state.floodSide*170*(1-fill),expansion);
+    tr(el.color,`translate(${fmt(colorX)}px,${fmt(mix(-Math.min(140,g.height/2-30),0,expansion))}px) scale(${fmt(colorScaleX)},${fmt(colorScaleY)})`);
+    op(el.color,mix(.72+fill*.28,1,expansion));
+    lastMorph=t;lastPos=p;lastStretch=stretch;lastFlood=flood;lastPress=press;lastFlow=flow;
+  }
+  function measure() {
+    // Layout reads occur only on resize and pointer-down, never in the frame loop.
+    const f=frame.getBoundingClientRect(),r=slider.getBoundingClientRect();
+    frameScale=f.width/1080;timelineRect={left:r.left,width:r.width};
+  }
+  function schedule() {if(!raf&&!ticking&&!disposed&&!document.hidden){lastTime=performance.now();raf=requestAnimationFrame(tick);}}
+  function wake(){dirty=true;schedule();}
+  function eraForYear(y){const t=yearToT(y);return t<.5?0:t<1.5?1:2;}
+  function setYear(year,feedback=true) {
+    if(!ticking)now=performance.now();
+    year=clamp(year,1965,2026);state.year=year;dirty=true;
+    const integer=Math.round(year);
+    if(integer!==lastYear){
+      if(feedback)for(let y=lastYear+(integer>lastYear?1:-1);integer>lastYear?y<=integer:y>=integer;y+=integer>lastYear?1:-1)yearTick(y);
+      rollDigits(integer);
+      lastYear=integer;
+      slider.setAttribute('aria-valuenow',String(integer));
+      slider.setAttribute('aria-valuetext',`${integer}, ${YEARS.includes(integer)?NAMES[YEARS.indexOf(integer)]:'between eras'}`);
+    }
+    if(state.reduced&&eraForYear(year)!==(reducedFade?.era??renderedEra))startReducedFade(eraForYear(year),state.on);
+    const snap=YEARS.findIndex(y=>Math.abs(year-y)<.015);
+    if(snap!==eraTarget){eraTarget=snap;eraFade={start:now,from:eraOpacity.slice()};}
+    wake();
+  }
+  function rollDigits(year) {
+    const value=String(year),direction=year>=lastYear?1:-1;
+    digitNodes.forEach((d,i)=>{
+      if(d.next.textContent===value[i])return;
+      d.old.textContent=d.next.textContent;d.next.textContent=value[i];d.start=now;d.dir=direction;
+      if(state.reduced){op(d.old,0);op(d.next,1);tr(d.next,'translateY(0%)');d.start=-Infinity;}
+    });
+  }
+  function renderControls() {
+    tr(timePosition,`translateX(${fmt((state.year-1965)/61*100)}%)`);
+    for(const d of digitNodes){
+      const progress=clamp((now-d.start)/D.sm),e=ease.out(progress);
+      op(d.old,1-e);op(d.next,e);
+      tr(d.old,`translateY(${fmt(-d.dir*e*100)}%)`);
+      tr(d.next,`translateY(${fmt(d.dir*(1-e)*100)}%)`);
+    }
+    if(eraFade){
+      const p=clamp((now-eraFade.start)/D.sm),e=ease.out(p);
+      eraLabels.forEach((node,i)=>{eraOpacity[i]=mix(eraFade.from[i],i===eraTarget?1:0,e);op(node,eraOpacity[i]);});
+      if(p===1)eraFade=null;
+    }
+  }
+  // Analytic damped spring, stable at 60/120 Hz and after missed frames.
+  function spring(x,v,target,k,c,dt) {
+    const a=c/2,w2=k-a*a,delta=x-target;
+    if(w2>0){const w=Math.sqrt(w2),e=Math.exp(-a*dt),co=Math.cos(w*dt),si=Math.sin(w*dt),b=(v+a*delta)/w;
+      return [target+e*(delta*co+b*si),e*(v*co-(a*b+delta*w)*si)];}
+    const w=Math.sqrt(Math.max(0,-w2));
+    if(w<.0001){const e=Math.exp(-a*dt),b=v+a*delta;return[target+(delta+b*dt)*e,(v-a*b*dt)*e];}
+    const r1=-a+w,r2=-a-w,A=(v-r2*delta)/(r1-r2),B=delta-A,e1=Math.exp(r1*dt),e2=Math.exp(r2*dt);
+    return[target+A*e1+B*e2,A*r1*e1+B*r2*e2];
+  }
+  function startReducedFade(era,on) {
+    reducedFade={start:now,era,on,switched:false};
+    wake();
+  }
+  function setContact(pressed) {
+    if(state.reduced)return;
+    now=performance.now();
+    pressMotion={from:state.press,to:Number(pressed),start:now};
+    wake();
+  }
+  // One coupled gesture: translation carries velocity into reversals, deformation
+  // follows that velocity, and the same spring naturally compresses on arrival.
+  // Small analytic substeps keep the coupled response consistent at 60/120 Hz.
+  function advanceGesture(s,target,t,dt,free=true) {
+    const modern=smooth(1,2,t),soft=smooth(0,1,t),liquid=smooth(1.08,1.9,t);
+    const k=mix(mix(2100,1000,soft),1000,modern),c=mix(mix(70,56,soft),56,modern);
+    const steps=Math.max(1,Math.ceil(dt*240)),step=dt/steps;
+    const over=mix(2/(2*anatomy(t).travel),.025,soft);
+    for(let i=0;i<steps;i++){
+      if(free){
+        [s.pos,s.velocity]=spring(s.pos,s.velocity,target,k,c,step);
+        s.pos=clamp(s.pos,-over,1+over);
+      }else s.velocity*=Math.exp(-step*40);
+      const stretchTarget=1+Math.min(.25,Math.abs(s.velocity)*.04)*liquid;
+      [s.stretch,s.stretchV]=spring(s.stretch,s.stretchV,stretchTarget,600,30,step);
+      [s.flow,s.flowV]=spring(s.flow,s.flowV,clamp(s.velocity/12,-1,1)*liquid,600,30,step);
+    }
+    if(Math.abs(s.stretch-1)<.0001&&Math.abs(s.stretchV)<.002&&Math.abs(s.velocity)<.01){s.stretch=1;s.stretchV=0;}
+    if(Math.abs(s.flow)<.0001&&Math.abs(s.flowV)<.002&&Math.abs(s.velocity)<.01){s.flow=0;s.flowV=0;}
+  }
+  function toggle(source='tap') {
+    if(!ticking)now=performance.now();
+    if(state.flood<.001||state.flood>.999)state.floodSide=clamp(state.pos)*2-1;
+    state.on=!state.on;flipId++;
+    instrument.setAttribute('aria-checked',String(state.on));
+    state.velocity=state.reduced?0:state.velocity;
+    snapMotion={id:flipId,source,start:now,settled:false};
+    pendingSettles.push({id:flipId,on:state.on,era:yearToT(state.year)});
+    floodMotion={from:state.flood,to:Number(state.on),start:now};
+    if(state.reduced)startReducedFade(eraForYear(state.year),state.on);
+    soundFlip(yearToT(state.year));vibrate(yearToT(state.year)>1.5?8:yearToT(state.year)>.5?5:12);
+    document.dispatchEvent(new CustomEvent('switch:flip',{detail:{id:flipId,on:state.on,year:state.year,source}}));
+    wake();
+  }
+  function settle() {
+    if(!snapMotion)return;
+    snapMotion=null;
+    for(const detail of pendingSettles.splice(0))document.dispatchEvent(new CustomEvent('switch:settle',{detail}));
+  }
+  function tick(timestamp) {
+    raf=0;ticking=true;const dt=Math.min((timestamp-lastTime)/1000,.04);lastTime=timestamp;now=timestamp;
+    if(state.recording){
+      recordClock+=dt;recordElapsed=recordClock%15.6;
+      if(Math.floor(recordClock/15.6)>recordCycle){recordCycle=Math.floor(recordClock/15.6);resetLoop();}
+      if(recording){window.gsap.updateRoot(recordClock);setYear(recordingData.year);if(scriptedDrag)state.pos=recordingData.pos;}
+    }
+    if(yearMotion){
+      const [value,velocity]=spring(state.year,yearMotion.v,yearMotion.target,yearMotion.magnetic?676:4096,yearMotion.magnetic?52:128,dt);
+      yearMotion.v=velocity;setYear(value);
+      if(Math.abs(state.year-yearMotion.target)<.001&&Math.abs(velocity)<.01){setYear(yearMotion.target);yearMotion=null;}
+    }
+    if(!state.reduced){
+      const free=!drag?.active&&!scriptedDrag;
+      advanceGesture(state,Number(state.on),yearToT(state.year),dt,free);
+      if(free&&Math.abs(state.pos-Number(state.on))<.0002&&Math.abs(state.velocity)<.006){
+        state.pos=Number(state.on);state.velocity=0;
+        if(state.stretch===1&&state.flow===0)settle();
+      }
+      if(state.pos!==lastPos||state.stretch!==lastStretch||state.flow!==lastFlow)dirty=true;
+    }
+    if(pressMotion){
+      const p=clamp((now-pressMotion.start)/D.press);
+      state.press=mix(pressMotion.from,pressMotion.to,ease.out(p));dirty=true;
+      if(p===1)pressMotion=null;
+    }
+    if(floodMotion){
+      const p=clamp((now-floodMotion.start)/D.sm);
+      state.flood=mix(floodMotion.from,floodMotion.to,ease.inOut(p));dirty=true;if(p===1)floodMotion=null;
+    }
+    if(reducedFade){
+      const p=clamp((now-reducedFade.start)/D.press);
+      if(p>=.5&&!reducedFade.switched){
+        renderedEra=reducedFade.era;reducedOn=reducedFade.on;reducedPose=Number(reducedOn);
+        state.pos=reducedPose;state.stretch=1;state.stretchV=0;state.velocity=0;state.press=0;state.flow=0;state.flowV=0;pressMotion=null;
+        reducedFade.switched=true;lastMorph=NaN;
+      }
+      op(object,p<.5?1-ease.out(p*2):ease.out((p-.5)*2));dirty=true;
+      if(p===1){reducedFade=null;op(object,1);settle();}
+    }
+    if(state.reduced&&!reducedFade&&snapMotion)settle();
+    if(dirty){renderObject();dirty=false;}
+    renderControls();
+    const digitsActive=digitNodes.some(d=>now-d.start<D.sm);
+    ticking=false;
+    if(state.recording||yearMotion||(snapMotion&&!drag?.active&&!scriptedDrag)||floodMotion||pressMotion||reducedFade||eraFade||digitsActive||state.stretch!==1||state.flow!==0||Math.abs(state.velocity)>.001||dirty)raf=requestAnimationFrame(tick);
+  }
+  // Sound is synthesized once per committed flip; dragging and settling are silent.
+  let audio=null,noise=null,master=null,audioWarmup=0;
+  function prepareAudio(suspended=false){
+    if(state.muted||audio)return;
+    try{
+        const Context=window.AudioContext||window.webkitAudioContext;if(!Context)return;
+        audio=new Context();master=audio.createGain();master.gain.value=.45;master.connect(audio.destination);
+        noise=audio.createBuffer(1,Math.ceil(audio.sampleRate*.12),audio.sampleRate);
+        const samples=noise.getChannelData(0);let seed=42;
+        for(let i=0;i<samples.length;i++){seed=(seed*1664525+1013904223)>>>0;samples[i]=seed/2147483648-1;}
+        if(suspended&&audio.state==='running')void audio.suspend();
+    }catch{}
+  }
+  function unlockAudio(){
+    if(state.muted)return;
+    prepareAudio();
+    try{
+      if(audio.state==='suspended')void audio.resume().catch(()=>{});
+    }catch{}
+  }
+  function tone(hz,length,gain,when=0){
+    if(!audio||state.muted||audio.state!=='running')return;
+    const at=audio.currentTime+when,osc=audio.createOscillator(),env=audio.createGain();
+    osc.frequency.value=hz;env.gain.setValueAtTime(gain,at);env.gain.exponentialRampToValueAtTime(.00001,at+length);
+    osc.connect(env);env.connect(master);osc.start(at);osc.stop(at+length);
+    osc.onended=()=>{osc.disconnect();env.disconnect();};
+  }
+  function soundFlip(t){
+    if(!audio||state.muted)return;
+    if(audio.state==='suspended'){void audio.resume().then(()=>soundFlip(t)).catch(()=>{});return;}
+    if(audio.state!=='running')return;
+    if(t>1.75){tone(3200,.003,.3);return;}
+    const soft=smooth(0,1,t),at=audio.currentTime,src=audio.createBufferSource(),filter=audio.createBiquadFilter(),env=audio.createGain();
+    src.buffer=noise;filter.type='lowpass';filter.frequency.value=mix(400,1700,soft);filter.Q.value=.7;
+    env.gain.setValueAtTime(mix(.95,.3,soft),at);env.gain.exponentialRampToValueAtTime(.00001,at+mix(.085,.026,soft));
+    src.connect(filter);filter.connect(env);env.connect(master);src.start(at);src.stop(at+.1);
+    src.onended=()=>{src.disconnect();filter.disconnect();env.disconnect();};
+    tone(mix(2400,1900,soft),mix(.045,.012,soft),mix(.06,.08,soft));
+  }
+  function vibrate(ms){try{navigator.vibrate?.(ms);}catch{}}
+  function yearTick(year){const major=YEARS.includes(year);tone(major?1800:2600,major?.009:.003,major?.075:.025);vibrate(major?6:1);}
+  const ac=new AbortController(),listen=(node,event,fn,options={})=>node.addEventListener(event,fn,{...options,signal:ac.signal});
+  function stopRecording(){
+    if(state.recording)status.textContent='Recording loop stopped.';
+    const wasDragging=scriptedDrag;
+    state.recording=false;scriptedDrag=false;recording?.kill();recording=null;window.gsap?.ticker.sleep();
+    $('#record').setAttribute('aria-pressed','false');$('#record-text').textContent='Play loop';
+    if(wasDragging&&!state.reduced)snapMotion??={id:0,source:'return',start:now};
+    wake();
+  }
+  function endDrag(cancel=false){
+    if(!drag)return;
+    if(!drag.committed){if(!drag.moved&&!cancel)toggle('tap');else if(!state.reduced){snapMotion={id:0,source:'return',start:now};wake();}}
+    drag=null;setContact(false);
+  }
+  listen(instrument,'pointerdown',e=>{
+    if(e.button!==0||drag||timeDrag)return;
+    stopRecording();unlockAudio();measure();now=performance.now();
+    instrument.setPointerCapture(e.pointerId);instrument.focus({preventScroll:true});
+    drag={id:e.pointerId,x:e.clientX,y:e.clientY,origin:Number(state.on),startPos:state.pos,lastPos:state.pos,lastAt:now,axis:geo.axis,travel:geo.travel,active:false,moved:false,committed:false};
+    setContact(true);
+  });
+  listen(instrument,'pointermove',e=>{
+    if(!drag||drag.id!==e.pointerId||drag.committed)return;
+    const x=(e.clientX-drag.x)/frameScale,y=(e.clientY-drag.y)/frameScale;
+    if(Math.hypot(x,y)<=4&&!drag.moved)return;
+    if(!drag.moved){drag.startPos=state.pos;drag.moved=true;drag.active=true;}
+    const projected=(x*Math.sin(drag.axis)-y*Math.cos(drag.axis))/(drag.travel*2);
+    const travel=clamp(projected*(drag.origin? -1:1));
+    // A growing force curve reaches the over-center point at 55% finger travel.
+    const resisted=travel*.88-.15*travel*travel;
+    if(!state.reduced){
+      const next=mix(drag.startPos,1-drag.origin,resisted),at=performance.now();
+      const elapsed=Math.max(1,at-drag.lastAt)/1000;
+      state.velocity=mix(state.velocity,clamp((next-drag.lastPos)/elapsed,-12,12),1-Math.exp(-elapsed*45));
+      state.pos=next;drag.lastPos=next;drag.lastAt=at;
+    }
+    if(travel>=.55){drag.committed=true;drag.active=false;toggle('drag');}
+    wake();
+  },{passive:true});
+  listen(instrument,'pointerup',e=>{if(drag?.id===e.pointerId){endDrag();instrument.releasePointerCapture(e.pointerId);}});
+  listen(instrument,'pointercancel',()=>endDrag(true));
+  listen(instrument,'lostpointercapture',()=>endDrag(true));
+  listen(instrument,'click',e=>{if(e.detail===0){stopRecording();unlockAudio();now=performance.now();toggle('accessible');}});
+  listen(instrument,'keydown',e=>{if((e.key===' '||e.key==='Enter')&&!e.repeat){e.preventDefault();stopRecording();unlockAudio();now=performance.now();toggle('keyboard');}});
+  function seekPointer(e){
+    const raw=clamp((e.clientX-timelineRect.left)/timelineRect.width)*61+1965;
+    const anchor=YEARS.find(y=>Math.abs(y-raw)<=1.5);
+    const target=anchor??raw,magnetic=anchor!==undefined;
+    // Preserve tracking velocity; entering a detent starts a monotonic capture.
+    const velocity=yearMotion&&(!magnetic||yearMotion.magnetic&&yearMotion.target===target)?yearMotion.v:0;
+    yearMotion={target,v:velocity,magnetic};wake();
+  }
+  listen(slider,'pointerdown',e=>{
+    if(e.button!==0||drag||timeDrag)return;stopRecording();unlockAudio();measure();now=performance.now();
+    timeDrag=e.pointerId;slider.setPointerCapture(e.pointerId);slider.focus({preventScroll:true});seekPointer(e);
+  });
+  listen(slider,'pointermove',e=>{if(timeDrag===e.pointerId)seekPointer(e);},{passive:true});
+  listen(slider,'pointerup',e=>{if(timeDrag===e.pointerId){timeDrag=null;slider.releasePointerCapture(e.pointerId);}});
+  listen(slider,'pointercancel',()=>{timeDrag=null;});
+  listen(slider,'lostpointercapture',()=>{timeDrag=null;});
+  function jumpYear(year){stopRecording();yearMotion=null;now=performance.now();setYear(year);}
+  listen(slider,'keydown',e=>{
+    const direction=['ArrowRight','ArrowUp'].includes(e.key)?1:['ArrowLeft','ArrowDown'].includes(e.key)?-1:0;
+    if(!direction&&!['Home','End'].includes(e.key))return;
+    e.preventDefault();unlockAudio();
+    let year=Math.round(state.year)+direction;
+    if(e.key==='Home')year=1965;else if(e.key==='End')year=2026;
+    else if(e.shiftKey)year=direction>0?(YEARS.find(y=>y>state.year+.01)??2026):([...YEARS].reverse().find(y=>y<state.year-.01)??1965);
+    jumpYear(year);
+  });
+  const recordingData={year:1965,pos:0};
+  function resetLoop(){
+    state.on=false;state.pos=0;state.velocity=0;state.stretch=1;state.stretchV=0;state.press=0;state.flow=0;state.flowV=0;state.flood=0;state.floodSide=-1;
+    pendingSettles=[];snapMotion=null;floodMotion=null;yearMotion=null;pressMotion=null;scriptedDrag=false;
+    renderedEra=0;reducedPose=0;reducedOn=false;reducedFade=null;op(object,1);
+    recordingData.year=1965;recordingData.pos=0;
+    instrument.setAttribute('aria-checked','false');setYear(1965,false);lastMorph=NaN;
+  }
+  window.switchClockReady=()=>{if(window.gsap){window.gsap.ticker.remove(window.gsap.updateRoot);window.gsap.ticker.sleep();}};
+  window.switchClockUnavailable=()=>{status.textContent='Recording library could not load. The switch and timeline still work. Reload to retry.';};
+  function startRecording(){
+    if(state.recording){stopRecording();return;}
+    if(!window.gsap){window.switchClockUnavailable();return;}
+    unlockAudio();now=performance.now();ticking=true;resetLoop();recordElapsed=0;recordClock=0;recordCycle=0;
+    const gsap=window.gsap;gsap.registerEase('switchOut',ease.out);gsap.registerEase('switchInOut',ease.inOut);
+    // updateRoot does not wake GSAP's ticker, unlike timeline.time().
+    // Only numeric choreography lives in GSAP; the sole rAF owns its clock.
+    gsap.globalTimeline.time(0,true);gsap.globalTimeline.startTime(0);
+    recording=gsap.timeline({repeat:-1});
+    recording.startTime(0);
+    recording.call(()=>toggle('recording'),[],.48);
+    recording.call(()=>{scriptedDrag=true;recordingData.pos=1;},[],1.22);
+    recording.to(recordingData,{pos:.51,duration:.38,ease:'switchInOut'},1.22);
+    recording.call(()=>{scriptedDrag=false;snapMotion={id:0,source:'return',start:now};},[],1.63);
+    recording.call(()=>toggle('recording'),[],2.16);
+    recording.to(recordingData,{year:1986,duration:2.12,ease:'switchInOut'},2.62);
+    recording.to(recordingData,{year:2007,duration:1.75,ease:'switchInOut'},5.30);
+    recording.call(()=>toggle('recording'),[],7.50);
+    recording.call(()=>toggle('recording'),[],8.16);
+    recording.to(recordingData,{year:2026,duration:2.04,ease:'switchInOut'},8.65);
+    recording.call(()=>toggle('recording'),[],11.14);
+    recording.call(()=>toggle('recording'),[],11.48);
+    recording.call(()=>toggle('recording'),[],11.84);
+    // Seven hero flips are odd: the reset flip is visible, then time winds home.
+    recording.call(()=>toggle('reset'),[],12.60);
+    recording.to(recordingData,{year:1965,duration:1.85,ease:'switchInOut'},13.20);
+    recording.to({}, {duration:.55},15.05);
+    gsap.ticker.sleep();state.recording=true;ticking=false;
+    $('#record').setAttribute('aria-pressed','true');$('#record-text').textContent='Stop loop';
+    status.textContent='Recording loop playing. 15.6 seconds. Press R to stop.';
+    wake();
+  }
+  function toggleHidden(){
+    hidden=!hidden;frame.classList.toggle('controls-hidden',hidden);
+    $('.timeline').inert=hidden;$('.toolbar').inert=hidden;
+    if(hidden)instrument.focus({preventScroll:true});
+  }
+  function toggleMute(){
+    state.muted=!state.muted;
+    if(!state.muted)unlockAudio();
+    if(master&&audio)master.gain.setTargetAtTime(state.muted?0:.45,audio.currentTime,.005);
+    $('#mute').setAttribute('aria-pressed',String(state.muted));
+    $('#mute').setAttribute('aria-label',state.muted?'Unmute sound':'Mute sound');
+    $('#mute-text').textContent=state.muted?'Sound off':'Sound on';
+  }
+  listen($('#record'),'click',startRecording);listen($('#hide'),'click',toggleHidden);listen($('#mute'),'click',toggleMute);
+  listen(document,'keydown',e=>{
+    if(e.altKey||e.ctrlKey||e.metaKey||e.repeat)return;
+    const key=e.key.toLowerCase();
+    if(key==='r'){e.preventDefault();startRecording();}
+    if(key==='h'){e.preventDefault();toggleHidden();}
+    if(key==='m'){e.preventDefault();toggleMute();}
+    if(key==='escape'){stopRecording();if(hidden)toggleHidden();}
+    if(['1','2','3'].includes(key)){unlockAudio();jumpYear(YEARS[Number(key)-1]);}
+  });
+  listen(document,'touchstart',()=>{},{passive:true});
+  listen(reducedQuery,'change',e=>{
+    state.reduced=e.matches;renderedEra=eraForYear(state.year);reducedPose=Number(state.on);reducedOn=state.on;
+    reducedFade=null;state.stretch=1;state.stretchV=0;state.velocity=0;state.press=0;state.flow=0;state.flowV=0;pressMotion=null;state.pos=Number(state.on);op(object,1);lastMorph=NaN;wake();
+  });
+  listen(document,'visibilitychange',()=>{
+    if(document.hidden){cancelAnimationFrame(raf);raf=0;void audio?.suspend();}
+    else{if(!state.muted)void audio?.resume().catch(()=>{});wake();}
+  });
+  const observer=new ResizeObserver(measure);observer.observe(frame);
+  listen(window,'pagehide',e=>{
+    cancelAnimationFrame(raf);raf=0;void audio?.suspend();
+    if(!e.persisted){
+      disposed=true;ac.abort();observer.disconnect();recording?.kill();void audio?.close();window.gsap?.ticker.sleep();
+      if(window.cancelIdleCallback)cancelIdleCallback(audioWarmup);else clearTimeout(audioWarmup);
+    }
+  });
+  listen(window,'pageshow',()=>{if(!disposed)wake();});
+  // The HTML already contains the complete 1965/off frame. No entrance or font swap.
+  measure();now=performance.now();renderObject();renderControls();
+  window.switchClockReady?.();
+  // Native audio-device initialization can be slow on a cold browser. Warm a
+  // silent, suspended context after paint; only a user gesture resumes playback.
+  const warmAudio=()=>{if(!disposed&&!document.hidden)prepareAudio(true);};
+  audioWarmup=window.requestIdleCallback?requestIdleCallback(warmAudio,{timeout:1500}):setTimeout(warmAudio,D.md);
+  // Read-only diagnostics: useful for frame/performance verification, no render-path work.
+  window.switchStudy=Object.freeze({
+    get state(){return {...state,t:yearToT(state.year),renderedEra,renderedPosition:state.reduced?reducedPose:state.pos,loopTime:recordElapsed,loopDuration:15.6,rafActive:!!raf,flipId};},
+    anatomy,actuatorProfile,advanceGesture,yearToT,spring,tokens:{duration:D,ease:[[.23,1,.32,1],[.65,0,.35,1]]}
+  });
+})();
+</script>
+</body>
+</html>
