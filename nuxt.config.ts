@@ -12,6 +12,8 @@ export default defineNuxtConfig({
   },
   routeRules: {
     '/': { prerender: true },
+    '/switch': { redirect: '/switch/index.html' },
+    '/switch/': { redirect: '/switch/index.html' },
     '/fonts/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
   },
   nitro: {

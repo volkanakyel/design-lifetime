@@ -25,6 +25,23 @@ pnpm dev
 
 Open [http://127.0.0.1:3048](http://127.0.0.1:3048).
 
+## Episode 02: The Life of a Switch
+
+Open [http://127.0.0.1:3048/switch](http://127.0.0.1:3048/switch).
+The entire episode is in [`public/switch/index.html`](public/switch/index.html):
+vanilla JavaScript, inline SVG/CSS, Google Fonts with optional display, and GSAP 3
+from cdnjs. It can also be served independently without Nuxt.
+
+One switch morphs from a 1965 steel toggle, through a 2007 glossy slide switch,
+to a 2026 liquid switch. Drag past the over-center detent to commit, or tap.
+The year slider supports arrows, Shift+arrows, Home, and End. Space/Enter flips
+the focused switch. `1` / `2` / `3` select eras.
+
+`R` plays the 15.6-second recording loop; `H` hides controls and the cursor;
+`M` mutes sound; `Escape` stops playback and restores controls. Reduced motion
+uses a 150 ms fade through a single object, with no geometric morph or stretch.
+Sound requires a user gesture, and vibration depends on browser/device support.
+
 ## Controls
 
 | Input | Action |
