@@ -1,0 +1,789 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0B0B0C">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="The Life of a Like. One like, twenty-two years of feedback. Episode 03 of The Life of a ___.">
+  <title>The Life of a Like — Episode 03</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/geist/v5/gyBhhwUxId8gMGYQMKR3pzfaWI_RnOMImpna6VEdtaiL.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/geistmono/v6/or3yQ6H-1_WfwkMZI_qYPLs1a-t7PU0AbeE9KK5U5Cl4PuCTfNg.woff2">
+  <style>
+    @font-face{font-family:Geist;src:url(https://fonts.gstatic.com/s/geist/v5/gyBhhwUxId8gMGYQMKR3pzfaWI_RnOMImpna6VEdtaiL.woff2) format("woff2");font-weight:400;font-display:optional}
+    @font-face{font-family:"Geist Mono";src:url(https://fonts.gstatic.com/s/geistmono/v6/or3yQ6H-1_WfwkMZI_qYPLs1a-t7PU0AbeE9KK5U5Cl4PuCTfNg.woff2) format("woff2");font-weight:400;font-display:optional}
+    @font-face{font-family:"Geist Fallback";src:local("Arial");size-adjust:100.3%;ascent-override:100%;descent-override:25%;line-gap-override:0%}
+    @font-face{font-family:"Mono Fallback";src:local("Courier New");size-adjust:100%;ascent-override:100%;descent-override:25%;line-gap-override:0%}
+    :root{
+      --ease-out:cubic-bezier(0.23,1,0.32,1);--ease-in-out:cubic-bezier(0.65,0,0.35,1);
+      --dur-press:150ms;--dur-sm:180ms;--dur-md:240ms;--dur-lg:320ms;
+      --ink:#0B0B0C;--paper:#F2F2F2;--muted:#86868b;--track:#2A2A2D;--accent:#FF5A1F;
+      font-family:Geist,"Geist Fallback",Arial,sans-serif;color:var(--paper);background:var(--ink);color-scheme:dark
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--ink)}
+    body{display:grid;place-items:center;-webkit-tap-highlight-color:transparent}
+    button{font:inherit;color:inherit}
+    .frame{position:relative;width:min(100vw,80svh);aspect-ratio:4/5;container-type:inline-size;isolation:isolate}
+    h1{position:absolute;left:10%;top:11.111111%;width:80%;margin:0;text-align:center;font-size:3.518519cqw;font-weight:400;letter-spacing:-.045em;line-height:1.15;color:#d5d5d5}
+    /* The control box is the 600×560 viewBox window at (240,280) of the 1080×1350 frame. */
+    .like{position:absolute;left:22.222222%;top:20.740741%;width:55.555556%;height:41.481481%;margin:0;padding:0;border:0;background:none;outline:none;touch-action:none;user-select:none;-webkit-user-select:none;cursor:pointer}
+    .like svg{display:block;width:100%;height:100%;overflow:visible;pointer-events:none}
+    .like svg *{transform-origin:0 0}
+    .focus-cue{position:absolute;left:calc(50% - 14px);bottom:3%;width:28px;height:2px;background:var(--accent);opacity:0}
+    .like:focus-visible .focus-cue{opacity:1}
+    .timeline{position:absolute;left:14%;top:74.074074%;width:72%;height:15.555556%}
+    .time-control{position:absolute;inset:0 0 auto;height:12.037037cqw;min-height:44px;touch-action:none;user-select:none;-webkit-user-select:none;outline:none;cursor:ew-resize}
+    .ruler{position:absolute;top:4.444444cqw;left:0;width:100%;height:6.481481cqw;overflow:visible;pointer-events:none}
+    .hairline{vector-effect:non-scaling-stroke}
+    .time-position{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
+    .time-thumb{position:absolute;left:0;top:4.444444cqw;width:1.111111cqw;height:1.111111cqw;min-width:7px;min-height:7px;border-radius:50%;background:var(--paper);transform:translate(-50%,-50%)}
+    .year-readout{position:absolute;top:0;left:0;width:9.259259cqw;height:3.518519cqw;transform:translateX(-50%);display:flex;justify-content:center;font:400 2.407407cqw/3.518519cqw "Geist Mono","Mono Fallback",monospace;letter-spacing:-.06em;overflow:hidden}
+    .digit{position:relative;display:block;width:.61em;height:100%}
+    .digit span{position:absolute;inset:0;text-align:center}
+    .digit .old{opacity:0}
+    .time-control:focus-visible .time-thumb{outline:2px solid var(--accent);outline-offset:5px}
+    .year-label{position:absolute;top:8.148148cqw;transform:translateX(-50%);font:400 1.203704cqw/1.4 "Geist Mono","Mono Fallback",monospace;color:var(--muted);font-variant-caps:all-small-caps;pointer-events:none}
+    .era-name{position:absolute;top:14.444444cqw;left:0;width:100%;height:2.222222cqw;text-align:center;font:400 1.203704cqw/1.5 "Geist Mono","Mono Fallback",monospace;letter-spacing:.14em;color:var(--muted)}
+    .era-name span{position:absolute;inset:0}
+    .toolbar{position:absolute;left:14%;bottom:5.185185%;width:72%;display:flex;justify-content:center;gap:2.777778cqw}
+    .toolbar button{border:0;padding:8px 0;background:none;min-height:44px;cursor:pointer;color:#78787e;font-size:1.111111cqw;line-height:1.5;transition:opacity var(--dur-press) var(--ease-out),transform var(--dur-press) var(--ease-out)}
+    .toolbar kbd{font:400 1.018519cqw "Geist Mono","Mono Fallback",monospace;color:#a0a0a5;margin-right:.648148cqw}
+    .toolbar button:active{transform:scale(.97)}
+    .toolbar button:focus-visible{outline:1px solid var(--accent);outline-offset:5px;border-radius:2px}
+    .toolbar button[aria-pressed=true]{color:var(--paper)}
+    .toolbar .record-mark{display:inline-block;width:.462963cqw;height:.462963cqw;margin-right:.648148cqw;border-radius:50%;background:var(--accent);opacity:0}
+    .toolbar button[aria-pressed=true] .record-mark{opacity:1}
+    .controls-hidden .timeline,.controls-hidden .toolbar{opacity:0;pointer-events:none}
+    .controls-hidden,.controls-hidden *{cursor:none}
+    .controls-hidden .focus-cue,.recording .focus-cue{opacity:0}
+    .recording .time-control:focus-visible .time-thumb,.recording .toolbar button:focus-visible{outline:none}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .t04{font:400 52px Verdana,Geneva,"DejaVu Sans",Tahoma,sans-serif}
+    .t10{font:700 46px "Lucida Grande","Helvetica Neue",Helvetica,Arial,sans-serif}
+    .t16{font:400 40px "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:.01em}
+    .t26{font:400 72px "Geist Mono","Mono Fallback",monospace;font-variant-numeric:tabular-nums}
+    @media(hover:hover) and (pointer:fine){.toolbar button:hover{color:var(--paper)}}
+    @media(max-width:600px){.toolbar button{font-size:max(9px,1.111111cqw)}.toolbar kbd{font-size:9px}.year-label,.era-name{font-size:max(9px,1.203704cqw)}}
+    @media(prefers-reduced-motion:reduce){.toolbar button{transition:opacity var(--dur-press) var(--ease-out)}.toolbar button:active{transform:none}}
+    @media(forced-colors:active){.time-thumb{background:CanvasText}.focus-cue{background:Highlight}.like svg{forced-color-adjust:none}}
+  </style>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" onload="window.likeClockReady?.()" onerror="window.likeClockUnavailable?.()"></script>
+</head>
+<body>
+<main class="frame" aria-label="The Life of a Like, episode 3">
+  <h1>The life of a like</h1>
+  <button class="like" type="button" aria-pressed="false" aria-label="Like, 41" aria-describedby="like-help">
+    <!-- One glyph path, one body, one counter. Nodes are never replaced; every
+         property is a pure function of t, plus the like physics on top. -->
+    <svg viewBox="240 280 600 560" aria-hidden="true">
+      <defs>
+        <path id="glyph-shape" stroke-linejoin="round" d="M-.155-1H.155V-.155H1V.155H.155V1H-.155V.155H-1V-.155H-.155Z"/>
+        <clipPath id="glyph-clip" clipPathUnits="userSpaceOnUse"><use href="#glyph-shape"/></clipPath>
+        <clipPath id="digit-clip" clipPathUnits="userSpaceOnUse"><rect x="-21.6" y="-46" width="43.2" height="92"/></clipPath>
+        <linearGradient id="body-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop stop-color="#fcfcfc"/><stop offset=".5" stop-color="#eeeef0"/><stop offset=".5" stop-color="#e2e2e5"/><stop offset="1" stop-color="#d0d0d4"/>
+        </linearGradient>
+        <linearGradient id="body-gloss" x1="0" y1="0" x2="0" y2="1">
+          <stop stop-color="#fff" stop-opacity=".95"/><stop offset=".48" stop-color="#fff" stop-opacity=".3"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="body-bevel" x1="0" y1="0" x2="0" y2="1">
+          <stop stop-color="#fff"/><stop offset=".3" stop-color="#fff" stop-opacity="0"/><stop offset=".8" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".18"/>
+        </linearGradient>
+        <linearGradient id="glyph-shade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset=".38" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".34"/>
+        </linearGradient>
+        <radialGradient id="glyph-spec" cx=".5" cy=".5" r=".5">
+          <stop stop-color="#fff" stop-opacity=".92"/><stop offset=".55" stop-color="#fff" stop-opacity=".28"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="glyph-sheen" cx=".3" cy=".18" r=".8">
+          <stop stop-color="#fff" stop-opacity=".12"/><stop offset=".6" stop-color="#fff" stop-opacity=".02"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="sweep-band" x1="0" y1="0" x2="1" y2="0">
+          <stop stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".9"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <!-- Body: grows out of the link underline, then dissolves through flat and ghost. -->
+      <g id="body" opacity="0">
+        <path id="body-fill-shape" fill="url(#body-fill)"/>
+        <path id="body-flat-shape" fill="#E5E5EA" opacity="0"/>
+        <path id="body-gloss-shape" fill="url(#body-gloss)" opacity="0"/>
+        <path id="body-bevel-shape" fill="none" stroke="url(#body-bevel)" stroke-width="2.5" opacity="0"/>
+        <path id="body-border" fill="none" stroke="#8e8e93" stroke-width="3"/>
+      </g>
+      <g id="t04" class="t04" fill="#0645AD">
+        <text id="one04" x="478.93" y="579.6">1</text>
+        <g id="brackets04"><text x="530.24" y="579.6">(</text><text x="620.02" y="579.6">)</text></g>
+        <rect id="underline04" x="436.4" y="582.6" width="207.24" height="3"/>
+      </g>
+      <g id="c04" class="t04" fill="#0645AD" style="transform:translate(587.07px,560.88px)"><text text-anchor="middle" y="18.72">41</text></g>
+      <g id="c10" class="t10" fill="#333" opacity="0"><text text-anchor="middle" y="16.47">41</text></g>
+      <g id="c16" class="t16" fill="#F2F2F2" opacity="0"><text text-anchor="middle" y="14.4">41</text></g>
+      <g id="c26" class="t26" fill="#F2F2F2" opacity="0">
+        <g transform="translate(-21.6 0)" clip-path="url(#digit-clip)"><text class="old" text-anchor="middle" y="25.2" opacity="0">4</text><text class="new" text-anchor="middle" y="25.2">4</text></g>
+        <g transform="translate(21.6 0)" clip-path="url(#digit-clip)"><text class="old" text-anchor="middle" y="25.2" opacity="0">1</text><text class="new" text-anchor="middle" y="25.2">1</text></g>
+      </g>
+      <g id="glyph" style="transform:translate(457.7px,559.7px) scale(15)">
+        <use id="g-base" href="#glyph-shape" fill="#0645AD"/>
+        <use id="g-outline" href="#glyph-shape" fill="none" stroke="#86868B" stroke-width=".07" opacity="0"/>
+        <use id="g-outline-thick" href="#glyph-shape" fill="none" stroke="#86868B" stroke-width=".085" opacity="0"/>
+        <g id="g-liked" opacity="0">
+          <use id="g-liked-fill" href="#glyph-shape" fill="#5A3696"/>
+          <use id="g-liked-stroke" href="#glyph-shape" fill="none" stroke="#5A3696" stroke-width=".07" opacity="0"/>
+          <use id="g-sheen" href="#glyph-shape" fill="url(#glyph-sheen)" opacity="0"/>
+        </g>
+        <g id="g-light" clip-path="url(#glyph-clip)" opacity="0">
+          <rect x="-1.2" y="-1.2" width="2.4" height="2.4" fill="url(#glyph-shade)"/>
+          <ellipse cx="-.3" cy="-.46" rx=".62" ry=".46" fill="url(#glyph-spec)"/>
+          <g transform="rotate(18)"><rect id="sweep" x="-.32" y="-1.6" width=".64" height="3.2" fill="url(#sweep-band)" opacity="0"/></g>
+        </g>
+      </g>
+      <g id="fx" fill="#FF5A1F">
+        <circle id="ring" r="1" fill="none" stroke="#FF5A1F" stroke-width="2" vector-effect="non-scaling-stroke" opacity="0"/>
+      </g>
+    </svg>
+    <span class="focus-cue" aria-hidden="true"></span>
+  </button>
+  <section class="timeline" aria-label="Time machine">
+    <div class="time-control" role="slider" tabindex="0" aria-label="Year" aria-valuemin="2004" aria-valuemax="2026" aria-valuenow="2004" aria-valuetext="2004, Plus one" aria-describedby="time-help" aria-keyshortcuts="ArrowLeft ArrowRight Home End">
+      <svg class="ruler" viewBox="0 0 778 70" preserveAspectRatio="none" aria-hidden="true">
+        <path class="hairline" d="M0 0H778" stroke="#2A2A2D" stroke-width="1"/>
+        <path class="hairline" d="M0.000 12v16M35.364 12v8M70.727 12v8M106.091 12v8M141.455 12v8M176.818 12v8M212.182 12v16M247.545 12v8M282.909 12v8M318.273 12v8M353.636 12v8M389.000 12v8M424.364 12v8M459.727 12v8M495.091 12v8M530.455 12v8M565.818 12v8M601.182 12v8M636.545 12v8M671.909 12v8M707.273 12v8M742.636 12v8M778.000 12v16" stroke="#2A2A2D" stroke-width="1"/>
+      </svg>
+      <span class="year-label" style="left:0" aria-hidden="true">2004</span>
+      <span class="year-label" style="left:27.272727%" aria-hidden="true">2010</span>
+      <span class="year-label" style="left:100%" aria-hidden="true">2026</span>
+      <div class="time-position" aria-hidden="true">
+        <div class="year-readout">
+          <span class="digit"><span class="old">2</span><span class="new">2</span></span>
+          <span class="digit"><span class="old">0</span><span class="new">0</span></span>
+          <span class="digit"><span class="old">0</span><span class="new">0</span></span>
+          <span class="digit"><span class="old">4</span><span class="new">4</span></span>
+        </div>
+        <span class="time-thumb"></span>
+      </div>
+    </div>
+    <div class="era-name" aria-hidden="true"><span>PLUS ONE</span><span style="opacity:0">STAR</span><span style="opacity:0">HEART</span></div>
+  </section>
+  <div class="toolbar" aria-label="Recording controls">
+    <button id="record" aria-pressed="false" aria-label="Play recording loop"><span class="record-mark"></span><kbd>R</kbd><span id="record-text">Play loop</span></button>
+    <button id="hide" aria-label="Hide controls"><kbd>H</kbd>Hide controls</button>
+    <button id="mute" aria-pressed="false" aria-label="Mute sound"><kbd>M</kbd><span id="mute-text">Sound on</span></button>
+  </div>
+  <p id="like-help" class="sr-only">Space or Enter likes and unlikes. In 2026, hold Space or press and hold to squash the heart, then release to pop it.</p>
+  <p id="time-help" class="sr-only">Drag to scrub from 2004 to 2026. Arrow keys change one year. Shift and an arrow jump to the next era. Home and End jump to 2004 and 2026. R plays or stops the 15.4 second recording loop. H hides controls. M toggles sound. Escape stops playback and reveals controls.</p>
+  <p class="sr-only" role="status" aria-live="polite" id="status"></p>
+</main>
+<script>
+(() => {
+  'use strict';
+  const $ = s => document.querySelector(s);
+  const D = Object.freeze({ press:150, sm:180, md:240, lg:320, exit:120 });
+  const YEARS = [2004,2010,2026], NAMES = ['Plus one','Star','Heart'], LOOP = 15.4;
+  const clamp = (v,a=0,b=1) => Math.max(a,Math.min(b,v));
+  const mix = (a,b,t) => a+(b-a)*t;
+  const smooth = (a,b,v) => { const p=clamp((v-a)/(b-a)); return p*p*(3-2*p); };
+  const yearToT = y => y<=2010 ? (y-2004)/6 : 1+(y-2010)/16;
+  // Exact CSS cubic-bezier tokens, evaluated numerically for the JS clock.
+  function bezier(x1,y1,x2,y2) {
+    const poly=(a,b,t)=>3*a*(1-t)*(1-t)*t+3*b*(1-t)*t*t+t*t*t;
+    return x=>{ if(x<=0||x>=1)return clamp(x);let lo=0,hi=1,t=x;
+      for(let i=0;i<18;i++){const v=poly(x1,x2,t);if(v<x)lo=t;else hi=t;t=(lo+hi)/2;}
+      return poly(y1,y2,t);
+    };
+  }
+  const ease={out:bezier(.23,1,.32,1),inOut:bezier(.65,0,.35,1)};
+
+  // Colour lives in OKLCH; endpoints are converted once, mixes are converted per morph.
+  const lin=c=>c<=.04045?c/12.92:((c+.055)/1.055)**2.4, srgb=c=>c<=.0031308?12.92*c:1.055*c**(1/2.4)-.055;
+  function oklch(hex) {
+    const [r,g,b]=[1,3,5].map(i=>lin(parseInt(hex.slice(i,i+2),16)/255));
+    const l=Math.cbrt(.4122214708*r+.5363325363*g+.0514459929*b),m=Math.cbrt(.2119034982*r+.6806995451*g+.1073969566*b),s=Math.cbrt(.0883024619*r+.2817188376*g+.6299787005*b);
+    const L=.2104542553*l+.793617785*m-.0040720468*s,A=1.9779984951*l-2.428592205*m+.4505937099*s,B=.0259040371*l+.7827717662*m-.808675766*s;
+    return [L,Math.hypot(A,B),Math.atan2(B,A)];
+  }
+  function cssColor([L,C,H]) {
+    const A=C*Math.cos(H),B=C*Math.sin(H);
+    const l=(L+.3963377774*A+.2158037573*B)**3,m=(L-.1055613458*A-.0638541728*B)**3,s=(L-.0894841775*A-1.291485548*B)**3;
+    const ch=v=>Math.round(clamp(srgb(clamp(v)))*255);
+    return `rgb(${ch(4.0767416621*l-3.3077115913*m+.2309699292*s)},${ch(-1.2684380046*l+2.6097574011*m-.3413193965*s)},${ch(-.0041960863*l-.7034186147*m+1.707614701*s)})`;
+  }
+  function mixColor(a,b,t) {
+    if(t<=0)return a.css;if(t>=1)return b.css;
+    let h1=a.v[2],h2=b.v[2];if(a.v[1]<.02)h1=h2;if(b.v[1]<.02)h2=h1;
+    let dh=h2-h1;if(dh>Math.PI)dh-=2*Math.PI;if(dh<-Math.PI)dh+=2*Math.PI;
+    return cssColor([mix(a.v[0],b.v[0],t),mix(a.v[1],b.v[1],t),h1+dh*t]);
+  }
+  const C=Object.fromEntries(Object.entries({link:'#0645AD',visited:'#5A3696',grey:'#A2A2A7',gold:'#F2B705',outline:'#86868B',accent:'#FF5A1F',ink:'#333333',paper:'#F2F2F2'}).map(([k,h])=>[k,{css:h,v:oklch(h)}]));
+
+  // ---- One glyph, one radial anatomy ------------------------------------------------
+  // Every shape is a radius per fixed angle around one origin. Interpolating radii at
+  // fixed angles can only produce a star-shaped simple polygon: it cannot self-intersect.
+  const N=720,DEG=Math.PI/180,COS=new Float64Array(N),SIN=new Float64Array(N);
+  for(let i=0;i<N;i++){const a=(-90+i*360/N)*DEG;COS[i]=Math.cos(a);SIN[i]=Math.sin(a);}
+  function rayEdge(dx,dy,ax,ay,bx,by) {
+    const ex=bx-ax,ey=by-ay,den=dx*ey-dy*ex;if(Math.abs(den)<1e-12)return 0;
+    const t=(ax*ey-ay*ex)/den,u=(ax*dy-ay*dx)/den;
+    return u>=-1e-6&&u<=1+1e-6&&t>0?t:0;
+  }
+  // "+" to star: five arms. The plus's bottom arm is two coincident arms that split into
+  // the star's legs; the side arms lift 18°; square tips taper to points.
+  const ARM0=[-90,0,90,90,180],ARM1=[-90,-18,54,126,198],STROKE=.155,INNER=.4;
+  // Rotation (sa), shoulder fill (sr) and tip taper (st) are separate so the asymmetric
+  // rotation can happen between two whole years; every resting year is symmetric.
+  function radialArms(sa,out,sr=sa,st=sa) {
+    const s=sa,phi=mix(45,36,s)*DEG,rs=mix(STROKE*Math.SQRT2,INNER,sr),tw=mix(STROKE,0,st);
+    const sx=rs*Math.cos(phi),sy=rs*Math.sin(phi);
+    out.fill(0);
+    for(let a=0;a<5;a++){
+      const ang=mix(ARM0[a],ARM1[a],s)*DEG,c=Math.cos(ang),n=Math.sin(ang);
+      const P=[[sx,sy],[1,tw],[1,-tw],[sx,-sy]].map(([x,y])=>[x*c-y*n,x*n+y*c]);
+      for(let i=0;i<N;i++)for(let e=0;e<3;e++){
+        const r=rayEdge(COS[i],SIN[i],P[e][0],P[e][1],P[e+1][0],P[e+1][1]);if(r>out[i])out[i]=r;
+      }
+    }
+  }
+  const PLUS=new Float64Array(N),STAR=new Float64Array(N),HEART=new Float64Array(N),BLUR=new Float64Array(N);
+  radialArms(0,PLUS);radialArms(1,STAR);
+  // The modern heart is an icon, not a curve: two circular lobes, straight sides
+  // tangent to them, a filleted cleft and a softly rounded tip (y down, lobes at y=0).
+  {
+    const LOBE_X=.9,LOBE_R=1,TIP=2.75,TIP_R=.26,CLEFT_R=.16;
+    const pts=[],arc=(cx,cy,r,a0,a1,n)=>{for(let k=0;k<=n;k++){const a=mix(a0,a1,k/n);pts.push([cx+r*Math.cos(a),cy+r*Math.sin(a)]);}};
+    // Side line from the tip, tangent to the right lobe on its outer side.
+    const A=Math.hypot(LOBE_X,TIP),d=Math.atan2(TIP,LOBE_X),a=Math.acos(-LOBE_R/A)-d;
+    const u=[Math.sin(a),-Math.cos(a)],n=[-u[1],u[0]];
+    const ky=-Math.sqrt((LOBE_R+CLEFT_R)**2-LOBE_X**2),cleft=Math.atan2(-ky,LOBE_X);
+    const qy=TIP-TIP_R/u[0];
+    arc(0,ky,CLEFT_R,Math.PI/2,cleft,12);                                          // cleft fillet
+    arc(LOBE_X,0,LOBE_R,cleft+Math.PI,Math.atan2(n[1],n[0])+2*Math.PI,160);         // right lobe
+    arc(0,qy,TIP_R,Math.atan2(n[1],n[0]),Math.PI/2,24);                             // rounded tip
+    const right=pts.splice(0);
+    for(const p of right)pts.push(p);
+    for(let k=right.length-1;k>=0;k--)pts.push([-right[k][0],right[k][1]]);
+    const ys=pts.map(p=>p[1]),cy=(Math.min(...ys)+Math.max(...ys))/2;
+    let max=0;
+    for(let i=0;i<N;i++){let r=0;for(let k=0;k<pts.length;k++){const p0=pts[k],p1=pts[(k+1)%pts.length];r=Math.max(r,rayEdge(COS[i],SIN[i],p0[0],p0[1]-cy,p1[0],p1[1]-cy));}HEART[i]=r;max=Math.max(max,r);}
+    for(let i=0;i<N;i++)HEART[i]/=max;
+  }
+  const HEART_TIP=HEART[N/2];
+  function blur(src,sigma,out) {
+    if(sigma<.5){out.set(src);return;}
+    const R=Math.ceil(sigma*3),w=[];let sum=0;
+    for(let j=-R;j<=R;j++){const v=Math.exp(-j*j/(2*sigma*sigma));w.push(v);sum+=v;}
+    for(let i=0;i<N;i++){let acc=0;for(let j=-R;j<=R;j++)acc+=src[(i+j+N)%N]*w[j+R];out[i]=acc/sum;}
+  }
+  // Star to heart: the points round (angular blur) and the legs pull together into the
+  // tip, then the rounded star settles into the heart: top point sinks into the cleft.
+  const SRC=[-90,-54,-18,18,54,90,126,162,198,234,270],DST=[-90,-54,-18,24,89,90,91,156,198,234,270];
+  function radialHeart(sigma,w,lam,out) {
+    blur(STAR,sigma,BLUR);
+    const T=SRC.map((a,k)=>mix(a,DST[k],w));
+    for(let i=0,k=0;i<N;i++){
+      const th=-90+i*360/N;while(k<T.length-2&&th>T[k+1])k++;
+      const src=SRC[k]+(th-T[k])/(T[k+1]-T[k])*(SRC[k+1]-SRC[k]);
+      const f=((src+90)/360*N+N)%N,i0=Math.floor(f)%N,frac=f-Math.floor(f);
+      out[i]=mix(mix(BLUR[i0],BLUR[(i0+1)%N],frac),HEART[i],lam);
+    }
+  }
+  const RADII=new Float64Array(N);
+  function glyphRadii(t,out=RADII) {
+    if(t<=1){
+      // 2006 (t .333) is a plus, 2007 (t .5) a crisp five-point star.
+      const sa=smooth(.36,.46,t),sr=smooth(.34,.48,t),st=smooth(.38,.49,t);
+      if(st<=0&&sr<=0)out.set(PLUS);else if(st>=1)out.set(STAR);else radialArms(sa,out,sr,st);
+    }
+    else{
+      // The star became a heart in 2015: the line star (2015) turns into the line
+      // heart (2016) strictly between the two years.
+      const u=smooth(1.322,1.368,t);
+      if(u<=0)out.set(STAR);else if(u>=1)out.set(HEART);
+      else radialHeart(14*smooth(0,.5,u),smooth(0,.8,u),smooth(.3,1,u),out);
+    }
+    return out;
+  }
+  const q4=n=>Math.round(n*1e4)/1e4;
+  function pathFrom(R) {
+    let d='';for(let i=0;i<N;i++)d+=(i?'L':'M')+q4(R[i]*COS[i])+' '+q4(R[i]*SIN[i]);
+    return d+'Z';
+  }
+
+  // ---- Layout per era (1080×1350 frame units) ---------------------------------------
+  // 2004 is Verdana 13px at 4× magnification; advances are Verdana's own (em/2048).
+  const P04={x:457.7,y:559.7,r:15},P10={x:505.5,y:560,r:28},P26={x:540,y:515,r:125};
+  const C04={x:587.07,y:560.88,f:52},C10={x:576,y:560,f:46},C26={x:540,y:742,f:72};
+  const LINE={x:436.4,w:207.24,baseline:579.6,underline:584.1};
+  const BODY={x:540,y:560,w:188,h:84,r:16};
+
+  const $id=id=>document.getElementById(id);
+  const frame=$('.frame'),like=$('.like'),slider=$('.time-control'),timePosition=$('.time-position'),status=$('#status');
+  const el=Object.fromEntries(['glyph-shape','body','body-fill-shape','body-flat-shape','body-gloss-shape','body-bevel-shape','body-border','t04','one04','brackets04','underline04','c04','c10','c16','c26','glyph','g-base','g-outline','g-outline-thick','g-liked','g-liked-fill','g-liked-stroke','g-sheen','g-light','sweep','fx','ring'].map(id=>[id,$id(id)]));
+  const countTexts=[el.c04.firstElementChild,el.c10.firstElementChild,el.c16.firstElementChild];
+  const digits26=[...el.c26.children].map(g=>({old:g.firstElementChild,next:g.lastElementChild,start:-Infinity,dir:1}));
+  const eraLabels=[...document.querySelectorAll('.era-name span')];
+  const digitNodes=[...document.querySelectorAll('.digit')].map(node=>({old:node.firstElementChild,next:node.lastElementChild,start:-Infinity,dir:1}));
+  const reducedQuery=matchMedia('(prefers-reduced-motion: reduce)');
+  const state={year:2004,liked:false,count:41,flood:0,pressure:0,s:1,sv:0,q:0,qv:0,muted:false,reduced:reducedQuery.matches,recording:false};
+  let raf=0,lastTime=0,now=0,dirty=true,disposed=false,ticking=false;
+  let yearMotion=null,timeDrag=null,press=null,pointerPress=null,keyPress=false,floodMotion=null,bounce=null,sweep=null,burst=null,springMode=null;
+  let recording=null,recordClock=0,recordCycle=0;
+  let lastYear=2004,lastT=NaN,lastShape=NaN,geo=null,renderedEra=0,reducedFade=null;
+  let eraTarget=0,eraOpacity=[1,0,0],eraFade=null,hidden=false,timelineRect={left:0,width:1};
+  const write=(node,prop,value)=>{if(node.style[prop]!==value)node.style[prop]=value;};
+  const tr=(node,value)=>write(node,'transform',value);
+  const op=(node,value)=>write(node,'opacity',String(Math.round(value*10000)/10000));
+  const attr=(node,name,value)=>{if(node.getAttribute(name)!==value)node.setAttribute(name,value);};
+  const fmt=n=>Math.round(n*1000)/1000;
+  function roundedRect(cx,cy,w,h,r) {
+    r=Math.min(r,w/2,h/2);const x=fmt(cx-w/2),y=fmt(cy-h/2),R=fmt(r),W=fmt(w-2*r),H=fmt(h-2*r);
+    return `M${fmt(x+r)} ${y}h${W}a${R} ${R} 0 0 1 ${R} ${R}v${H}a${R} ${R} 0 0 1 ${-R} ${R}h${-W}a${R} ${R} 0 0 1 ${-R} ${-R}v${-H}a${R} ${R} 0 0 1 ${R} ${-R}Z`;
+  }
+
+  // Pure morphology of t. Windows run container → glyph → counter → colour → light.
+  // Crossfades between two layers sit strictly between whole years, so any paused
+  // year is one object, never a double exposure.
+  function anatomy(t) {
+    const g={t};
+    // Container, after real interfaces: grows out of the 2004 underline into an early
+    // web 2.0 button (2006), turns glossy (2008), matte (2012), flat (2013), ghost (2014),
+    // then leaves the glyph on its own (2015). Each change sits between two whole years.
+    g.bodyIn=smooth(.17,.2,t);g.grow=smooth(.17,.3,t);
+    g.bodyW=mix(LINE.w+24,BODY.w,smooth(.19,.32,t));g.bodyH=mix(3,BODY.h,g.grow);g.bodyY=mix(LINE.underline,BODY.y,g.grow);
+    g.gloss=smooth(.52,.64,t)*(1-smooth(1.07,1.115,t));
+    g.gradient=1-smooth(1.13,1.18,t);g.fill=1-smooth(1.19,1.245,t);g.border=1-smooth(1.255,1.3,t);
+    g.borderWidth=mix(3,2,smooth(1.13,1.18,t));
+    // Feed era (2015 on): glyph over count, no container; from 2016 the heart grows
+    // year by year into the 2026 hero. Growth is pure scale, so every year is clean.
+    const stack=smooth(1.255,1.305,t),grow=smooth(1.33,2,t);
+    if(t<=1){const p=smooth(.19,.32,t);g.gx=mix(P04.x,P10.x,p);g.gy=mix(P04.y,P10.y,p);g.gr=mix(P04.r,P10.r,smooth(.34,.49,t));}
+    else{g.gx=mix(P10.x,P26.x,stack);g.gy=mix(P10.y,mix(548,P26.y,grow),stack);g.gr=mix(P10.r,mix(26,P26.r,grow),stack);}
+    g.shape=t<=1?clamp(t,.34,.49):clamp(t,1.322,1.368);
+    // 2004 furniture leaves together: the "1" of "+1", the brackets, the underline.
+    g.one=1-smooth(.17,.24,t);g.brackets=g.one;g.underline=1-smooth(.19,.3,t);
+    // Counter: one number re-set per era. Verdana link, bold web 2.0 label, regular
+    // flat-era sans, Geist Mono tabular. Typeface swaps fall strictly between years.
+    if(t<=1){const k=smooth(.19,.32,t);g.cx=mix(C04.x,C10.x,k);g.cy=mix(C04.y,C10.y,k);g.size=mix(C04.f,C10.f,k);}
+    else{g.size=mix(C10.f,mix(40,C26.f,grow),stack);g.cx=mix(C10.x,g.gx,stack);g.cy=mix(C10.y,g.gy+g.gr*.92+g.size*1.55,stack);}
+    g.c04=1-smooth(.54,.64,t);
+    g.c10=smooth(.54,.64,t)*(1-smooth(1.19,1.245,t));
+    g.c16=smooth(1.19,1.245,t)*(1-smooth(1.79,1.81,t));
+    g.c26=smooth(1.79,1.81,t);
+    // Colour, interpolated in OKLCH. Link blue → grey star (2008) → flat grey (2013)
+    // → line icon (2014). Liked: visited → gold → series accent with the heart (2016).
+    const c1=smooth(.52,.64,t);
+    g.unliked=t<=1?mixColor(C.link,C.grey,c1):mixColor(C.grey,C.outline,smooth(1.13,1.18,t));
+    g.liked=t<=1?mixColor(C.visited,C.gold,c1):mixColor(C.gold,C.accent,smooth(1.322,1.368,t));
+    g.outline=smooth(1.19,1.245,t);g.base=1-g.outline;
+    // Light, fixed top-left: none on the flat web, specular only in the glossy years,
+    // gone with flat design, a soft matte sheen on the 2026 fill.
+    g.spec=smooth(.52,.64,t)*(1-smooth(1.07,1.115,t));g.sheen=smooth(1.85,1.98,t);
+    return g;
+  }
+  function eraOf(t){return t<.5?0:t<1.345?1:2;}
+  function currentT(){return state.reduced?renderedEra:yearToT(state.year);}
+  function morph(t) {
+    const g=geo=anatomy(t);
+    if(g.shape!==lastShape){attr(el['glyph-shape'],'d',pathFrom(glyphRadii(t)));lastShape=g.shape;}
+    op(el.body,g.bodyIn);
+    const body=roundedRect(BODY.x,g.bodyY,g.bodyW,g.bodyH,BODY.r);
+    const inset=roundedRect(BODY.x,g.bodyY,Math.max(0,g.bodyW-5),Math.max(0,g.bodyH-5),BODY.r-2.5);
+    attr(el['body-fill-shape'],'d',body);attr(el['body-flat-shape'],'d',body);attr(el['body-gloss-shape'],'d',body);attr(el['body-border'],'d',body);attr(el['body-bevel-shape'],'d',inset);
+    op(el['body-fill-shape'],g.fill*g.gradient);op(el['body-flat-shape'],g.fill*(1-g.gradient));op(el['body-gloss-shape'],g.gloss*g.fill);op(el['body-bevel-shape'],g.gloss);op(el['body-border'],g.border);attr(el['body-border'],'stroke-width',String(fmt(g.borderWidth)));
+    op(el.one04,g.one);op(el.brackets04,g.brackets);
+    write(el.underline04,'transformOrigin',`${LINE.x+LINE.w}px 0px`);
+    tr(el.underline04,`scaleX(${fmt(Math.max(.0001,g.underline))})`);
+    op(el.underline04,g.underline>0?1:0);
+    const counter=(node,f)=>tr(node,`translate(${fmt(g.cx)}px,${fmt(g.cy)}px) scale(${fmt(g.size/f)})`);
+    counter(el.c04,C04.f);counter(el.c10,C10.f);counter(el.c16,40);counter(el.c26,C26.f);
+    op(el.c04,g.c04);op(el.c10,g.c10);op(el.c16,g.c16);op(el.c26,g.c26);
+    attr(el['g-base'],'fill',g.unliked);
+    attr(el['g-liked-fill'],'fill',g.liked);attr(el['g-liked-stroke'],'stroke',g.liked);
+    op(el['g-liked-stroke'],g.outline);op(el['g-sheen'],g.sheen);
+  }
+
+  // ---- Clock ------------------------------------------------------------------------
+  function measure(){const r=slider.getBoundingClientRect();timelineRect={left:r.left,width:r.width};}
+  function schedule(){if(!raf&&!ticking&&!disposed&&!document.hidden){lastTime=performance.now();raf=requestAnimationFrame(tick);}}
+  function wake(){dirty=true;schedule();}
+  function setYear(year,feedback=true) {
+    if(!ticking)now=performance.now();
+    year=clamp(year,2004,2026);state.year=year;dirty=true;
+    const integer=Math.round(year);
+    if(integer!==lastYear){
+      if(feedback)for(let y=lastYear+(integer>lastYear?1:-1);integer>lastYear?y<=integer:y>=integer;y+=integer>lastYear?1:-1)yearTick(y);
+      rollDigits(integer);lastYear=integer;
+      slider.setAttribute('aria-valuenow',String(integer));
+      slider.setAttribute('aria-valuetext',`${integer}, ${YEARS.includes(integer)?NAMES[YEARS.indexOf(integer)]:'between eras'}`);
+    }
+    const era=eraOf(yearToT(year));
+    if(state.reduced&&era!==(reducedFade?.era??renderedEra))reducedFade={start:now,era,switched:false};
+    const snap=YEARS.findIndex(y=>Math.abs(year-y)<.015);
+    if(snap!==eraTarget){eraTarget=snap;eraFade={start:now,from:eraOpacity.slice()};}
+    wake();
+  }
+  function rollDigits(year) {
+    const value=String(year),direction=year>=lastYear?1:-1;
+    digitNodes.forEach((d,i)=>{
+      if(d.next.textContent===value[i])return;
+      d.old.textContent=d.next.textContent;d.next.textContent=value[i];d.start=now;d.dir=direction;
+      if(state.reduced){op(d.old,0);op(d.next,1);tr(d.next,'translateY(0%)');d.start=-Infinity;}
+    });
+  }
+  function rollCount(dir,animate) {
+    const value=String(state.count).padStart(2,'0').slice(-2);
+    digits26.forEach((d,i)=>{
+      if(d.next.textContent===value[i])return;
+      d.old.textContent=d.next.textContent;d.next.textContent=value[i];d.dir=dir;d.start=animate?now:-Infinity;
+    });
+  }
+  function renderControls() {
+    tr(timePosition,`translateX(${fmt((state.year-2004)/22*100)}%)`);
+    for(const d of digitNodes){
+      const e=ease.out(clamp((now-d.start)/D.sm));
+      op(d.old,1-e);op(d.next,e);tr(d.old,`translateY(${fmt(-d.dir*e*100)}%)`);tr(d.next,`translateY(${fmt(d.dir*(1-e)*100)}%)`);
+    }
+    if(eraFade){
+      const p=clamp((now-eraFade.start)/D.sm),e=ease.out(p);
+      eraLabels.forEach((node,i)=>{eraOpacity[i]=mix(eraFade.from[i],i===eraTarget?1:0,e);op(node,eraOpacity[i]);});
+      if(p===1)eraFade=null;
+    }
+  }
+  // Analytic damped spring, stable at 60/120 Hz and after missed frames.
+  function spring(x,v,target,k,c,dt) {
+    const a=c/2,w2=k-a*a,delta=x-target;
+    if(w2>0){const w=Math.sqrt(w2),e=Math.exp(-a*dt),co=Math.cos(w*dt),si=Math.sin(w*dt),b=(v+a*delta)/w;
+      return [target+e*(delta*co+b*si),e*(v*co-(a*b+delta*w)*si)];}
+    const w=Math.sqrt(Math.max(0,-w2));
+    if(w<.0001){const e=Math.exp(-a*dt),b=v+a*delta;return[target+(delta+b*dt)*e,(v-a*b*dt)*e];}
+    const r1=-a+w,r2=-a-w,A=(v-r2*delta)/(r1-r2),B=delta-A,e1=Math.exp(r1*dt),e2=Math.exp(r2*dt);
+    return[target+A*e1+B*e2,A*r1*e1+B*r2*e2];
+  }
+  // The pop: scale spring k 520 / c 30, impulse solved so the one peak is 1.08.
+  const POP={k:520,c:30,qk:1600,qc:80},SOFT={k:520,c:2*Math.sqrt(520),qk:1600,qc:80};
+  const POP_V=(()=>{const w=Math.sqrt(POP.k),z=POP.c/(2*w),wd=w*Math.sqrt(1-z*z),tp=Math.atan2(wd,z*w)/wd;return .08/(Math.exp(-z*w*tp)*Math.sin(wd*tp)/wd);})();
+
+  function physics(dt) {
+    const era=eraOf(currentT()),live=era===2&&!state.reduced;
+    if(press&&live){
+      const p=clamp((now-press.start)/400);
+      state.pressure=.35*ease.out(p)+.65*ease.inOut(p);
+      [state.q,state.qv]=spring(state.q,state.qv,state.pressure,SOFT.qk,SOFT.qc,dt);
+      [state.s,state.sv]=spring(state.s,state.sv,1,SOFT.k,SOFT.c,dt);
+    }else if(springMode){
+      const m=springMode,steps=Math.max(1,Math.ceil(dt*240)),h=dt/steps;
+      for(let i=0;i<steps;i++){[state.s,state.sv]=spring(state.s,state.sv,1,m.k,m.c,h);[state.q,state.qv]=spring(state.q,state.qv,0,m.qk,m.qc,h);}
+      if(Math.abs(state.s-1)<1e-4&&Math.abs(state.sv)<1e-3&&Math.abs(state.q)<1e-4&&Math.abs(state.qv)<1e-3){state.s=1;state.sv=0;state.q=0;state.qv=0;springMode=null;}
+    }
+    if(!live&&!springMode){state.s=1;state.sv=0;state.q=0;state.qv=0;}
+    if(floodMotion){
+      const p=clamp((now-floodMotion.start)/floodMotion.duration);
+      state.flood=mix(floodMotion.from,floodMotion.to,ease.out(p));if(p===1)floodMotion=null;
+    }
+  }
+  function renderLike() {
+    const g=geo;
+    let b=1;
+    if(bounce){
+      const p=(now-bounce.start)/D.sm,peak=bounce.dir>0?1.18:.88,split=.39;
+      b=p<split?mix(1,peak,ease.out(p/split)):mix(peak,1,ease.out(clamp((p-split)/(1-split))));
+      if(p>=1){bounce=null;b=1;}
+    }
+    const r=g.gr*b,s=state.s,q=state.q,sx=s*(1-.04*q),sy=s*(1-.12*q),py=fmt(HEART_TIP*.35);
+    tr(el.glyph,`translate(${fmt(g.gx)}px,${fmt(g.gy)}px) scale(${fmt(r)}) translate(0px,${py}px) scale(${fmt(sx)},${fmt(sy)}) translate(0px,${-py}px)`);
+    const flood=state.flood,full=state.reduced?flood:flood>=1?1:0;
+    // The fill floods as the heart's own shape, from its centre outward.
+    tr(el['g-liked'],`scale(${fmt(state.reduced?1:mix(.42,1,flood))})`);
+    op(el['g-liked'],state.reduced?flood:clamp(flood*3));
+    op(el['g-base'],g.base*(1-full));
+    // The grey outline hands over to the fill as it arrives: never a grey rim on orange.
+    const handover=state.reduced?flood:Math.max(full,clamp(flood*1.6));
+    op(el['g-outline'],g.outline*(1-handover));
+    op(el['g-outline-thick'],g.outline*clamp(q)*(1-handover));
+    // Light lands on material only: never inside an empty outline.
+    op(el['g-light'],g.spec*Math.max(g.base,state.reduced?flood:flood>0?1:0));
+    // 2004 is the flat web: link blue, visited purple, nothing in between.
+    attr(el.t04,'fill',state.liked?C.visited.css:C.link.css);attr(el.c04,'fill',state.liked?C.visited.css:C.link.css);
+    if(sweep){
+      const p=clamp((now-sweep.start)/D.lg);
+      tr(el.sweep,`translateX(${fmt(mix(-1.6,1.6,ease.inOut(p))*sweep.dir)}px)`);op(el.sweep,Math.sin(Math.PI*p)*.9);
+      if(p===1)sweep=null;
+    }
+    if(burst){
+      // One quiet ring: the only ornament the modern like keeps.
+      const p=clamp((now-burst.start)/D.md),ring=ease.out(p);
+      tr(el.fx,`translate(${fmt(g.gx)}px,${fmt(g.gy)}px)`);
+      tr(el.ring,`scale(${fmt(g.gr*mix(1.02,1.32,ring))})`);op(el.ring,.32*(1-ring));
+      if(p===1){burst=null;op(el.ring,0);}
+    }
+    for(const d of digits26){
+      const e=ease.out(clamp((now-d.start)/D.sm));
+      op(d.old,1-e);op(d.next,e);
+      if(!state.reduced){tr(d.old,`translateY(${fmt(-d.dir*e*80)}px)`);tr(d.next,`translateY(${fmt(d.dir*(1-e)*80)}px)`);}
+      else{tr(d.old,'none');tr(d.next,'none');}
+    }
+  }
+  function render() {
+    const t=currentT();
+    if(t!==lastT){morph(t);lastT=t;}
+    renderLike();
+  }
+  function tick(timestamp) {
+    raf=0;ticking=true;const dt=Math.min((timestamp-lastTime)/1000,.04);lastTime=timestamp;now=timestamp;
+    if(state.recording&&recording){
+      recordClock+=dt;
+      if(Math.floor(recordClock/LOOP)>recordCycle){recordCycle=Math.floor(recordClock/LOOP);resetLoop();}
+      window.gsap.updateRoot(recordClock);setYear(recordingData.year);
+    }
+    if(yearMotion){
+      const [value,velocity]=spring(state.year,yearMotion.v,yearMotion.target,yearMotion.magnetic?676:4096,yearMotion.magnetic?52:128,dt);
+      yearMotion.v=velocity;setYear(value);
+      if(Math.abs(state.year-yearMotion.target)<.001&&Math.abs(velocity)<.01){setYear(yearMotion.target);yearMotion=null;}
+    }
+    physics(dt);
+    if(reducedFade){
+      const p=clamp((now-reducedFade.start)/D.press);
+      if(p>=.5&&!reducedFade.switched){renderedEra=reducedFade.era;reducedFade.switched=true;lastT=NaN;}
+      op(like.firstElementChild,p<.5?1-ease.out(p*2):ease.out((p-.5)*2));
+      if(p===1){reducedFade=null;op(like.firstElementChild,1);}
+    }
+    render();renderControls();
+    const digitsActive=digitNodes.some(d=>now-d.start<D.sm)||digits26.some(d=>now-d.start<D.sm);
+    ticking=false;
+    if(state.recording||yearMotion||press||springMode||floodMotion||bounce||sweep||burst||reducedFade||eraFade||digitsActive)raf=requestAnimationFrame(tick);
+  }
+
+  // ---- The like ---------------------------------------------------------------------
+  function pressStart(source) {
+    if(press)return;
+    if(!ticking)now=performance.now();
+    press={start:now,source};
+    if(eraOf(currentT())===2&&!state.reduced&&!state.liked)vibrate([3,147,5,145,7]);
+    wake();
+  }
+  function pressEnd(commit) {
+    if(!press)return;
+    if(!ticking)now=performance.now();
+    const pressure=state.pressure;press=null;state.pressure=0;
+    if(commit)toggleLike(pressure);else springMode=SOFT;
+    wake();
+  }
+  function toggleLike(pressure=0) {
+    if(!ticking)now=performance.now();
+    state.liked=!state.liked;state.count=41+Number(state.liked);
+    const liked=state.liked,era=eraOf(currentT());
+    like.setAttribute('aria-pressed',String(liked));like.setAttribute('aria-label',`Like, ${state.count}`);
+    for(const text of countTexts)text.textContent=String(state.count);
+    rollCount(liked?1:-1,(era===2&&!state.reduced)||state.reduced);
+    if(state.reduced){floodMotion={from:state.flood,to:Number(liked),start:now,duration:D.press};bounce=sweep=burst=null;}
+    else if(era===2){
+      floodMotion={from:state.flood,to:Number(liked),start:now,duration:liked?D.sm:D.exit};
+      if(liked){springMode=POP;state.sv+=POP_V*mix(.72,1,clamp(pressure/.9));burst={start:now};document.dispatchEvent(new CustomEvent('like:burst'));}
+      else{springMode=SOFT;state.sv-=.8;}
+    }else{
+      floodMotion=null;state.flood=Number(liked);
+      if(era===1){bounce={start:now,dir:liked?1:-1};sweep={start:now,dir:liked?1:-1};}
+    }
+    soundLike(era,liked);
+    if(era===2){vibrate(0);vibrate(liked?10:4);}else vibrate(era?5:8);
+    document.dispatchEvent(new CustomEvent('like:toggle',{detail:{liked,count:state.count,year:state.year,era}}));
+    wake();
+  }
+
+  // ---- Sound: synthesized once per like ---------------------------------------------
+  let audio=null,noise=null,master=null,audioWarmup=0;
+  function prepareAudio(suspended=false) {
+    if(state.muted||audio)return;
+    try{
+      const Context=window.AudioContext||window.webkitAudioContext;if(!Context)return;
+      audio=new Context();master=audio.createGain();master.gain.value=.45;master.connect(audio.destination);
+      noise=audio.createBuffer(1,Math.ceil(audio.sampleRate*.08),audio.sampleRate);
+      const samples=noise.getChannelData(0);let seed=7;
+      for(let i=0;i<samples.length;i++){seed=(seed*1664525+1013904223)>>>0;samples[i]=seed/2147483648-1;}
+      if(suspended&&audio.state==='running')void audio.suspend();
+    }catch{}
+  }
+  function unlockAudio() {
+    if(state.muted)return;prepareAudio();
+    try{if(audio.state==='suspended')void audio.resume().catch(()=>{});}catch{}
+  }
+  const ready=()=>audio&&!state.muted&&audio.state==='running';
+  function tone(hz,length,gain,when=0) {
+    if(!ready())return;
+    const at=audio.currentTime+when,osc=audio.createOscillator(),env=audio.createGain();
+    osc.frequency.value=hz;env.gain.setValueAtTime(gain,at);env.gain.exponentialRampToValueAtTime(.00001,at+length);
+    osc.connect(env);env.connect(master);osc.start(at);osc.stop(at+length+.005);
+    osc.onended=()=>{osc.disconnect();env.disconnect();};
+  }
+  function burstNoise(type,hz,q,length,gain) {
+    if(!ready())return;
+    const at=audio.currentTime,src=audio.createBufferSource(),filter=audio.createBiquadFilter(),env=audio.createGain();
+    src.buffer=noise;filter.type=type;filter.frequency.value=hz;filter.Q.value=q;
+    env.gain.setValueAtTime(gain,at);env.gain.exponentialRampToValueAtTime(.00001,at+length);
+    src.connect(filter);filter.connect(env);env.connect(master);src.start(at);src.stop(at+length+.01);
+    src.onended=()=>{src.disconnect();filter.disconnect();env.disconnect();};
+  }
+  function soundLike(era,liked) {
+    if(!audio||state.muted)return;
+    if(audio.state==='suspended'){void audio.resume().then(()=>soundLike(era,liked)).catch(()=>{});return;}
+    // 2004: an old ball mouse. 2010: a soft plastic click. 2026: a 3 ms tick.
+    if(era===0)burstNoise('lowpass',1200,.7,.03,.9);
+    else if(era===1){burstNoise('bandpass',2600,1.4,.014,liked?.75:.55);tone(1500,.012,.05);}
+    else if(liked)tone(3200,.003,.32);
+    else tone(2100,.003,.13);
+  }
+  function vibrate(pattern){try{navigator.vibrate?.(pattern);}catch{}}
+  function yearTick(year){const major=YEARS.includes(year);tone(major?1800:2600,major?.009:.003,major?.075:.025);vibrate(major?6:1);}
+
+  // ---- Input ------------------------------------------------------------------------
+  const ac=new AbortController(),listen=(node,event,fn,options={})=>node.addEventListener(event,fn,{...options,signal:ac.signal});
+  function stopRecording() {
+    if(state.recording)status.textContent='Recording loop stopped.';
+    state.recording=false;frame.classList.remove('recording');recording?.kill();recording=null;window.gsap?.ticker.sleep();
+    $('#record').setAttribute('aria-pressed','false');$('#record-text').textContent='Play loop';
+    if(press)pressEnd(false);
+    wake();
+  }
+  listen(like,'pointerdown',e=>{
+    if(e.button!==0||pointerPress!==null||timeDrag!==null)return;
+    stopRecording();unlockAudio();
+    pointerPress=e.pointerId;like.setPointerCapture(e.pointerId);
+    pressStart('pointer');
+  });
+  listen(like,'pointerup',e=>{
+    if(pointerPress!==e.pointerId)return;
+    pointerPress=null;const r=like.getBoundingClientRect();
+    pressEnd(e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom);
+  });
+  const cancelPointer=()=>{if(pointerPress!==null){pointerPress=null;pressEnd(false);}};
+  listen(like,'pointercancel',cancelPointer);listen(like,'lostpointercapture',cancelPointer);
+  // Space presses and holds (the 2026 squash); Enter is a tap. Native clicks from
+  // these keys are suppressed so each like commits exactly once.
+  listen(like,'keydown',e=>{
+    if(e.key===' '){e.preventDefault();if(!e.repeat&&!keyPress){keyPress=true;stopRecording();unlockAudio();pressStart('keyboard');}}
+    else if(e.key==='Enter'){e.preventDefault();if(!e.repeat){stopRecording();unlockAudio();pressStart('keyboard');pressEnd(true);}}
+  });
+  listen(like,'keyup',e=>{if(e.key===' '&&keyPress){e.preventDefault();keyPress=false;pressEnd(true);}});
+  listen(like,'blur',()=>{if(keyPress){keyPress=false;pressEnd(false);}});
+  listen(like,'click',e=>{if(e.detail===0&&!keyPress&&!press){stopRecording();unlockAudio();toggleLike(0);}});
+  function seekPointer(e) {
+    const raw=clamp((e.clientX-timelineRect.left)/timelineRect.width)*22+2004;
+    const anchor=YEARS.find(y=>Math.abs(y-raw)<=1);
+    const target=anchor??raw,magnetic=anchor!==undefined;
+    const velocity=yearMotion&&(!magnetic||yearMotion.magnetic&&yearMotion.target===target)?yearMotion.v:0;
+    yearMotion={target,v:velocity,magnetic};wake();
+  }
+  function releaseSlider() {
+    // Rest only on whole years: every resting frame is a designed object.
+    const target=Math.round(yearMotion?.target??state.year);
+    yearMotion={target,v:yearMotion?.v??0,magnetic:true};wake();
+  }
+  listen(slider,'pointerdown',e=>{
+    if(e.button!==0||timeDrag!==null||pointerPress!==null)return;stopRecording();unlockAudio();measure();now=performance.now();
+    timeDrag=e.pointerId;slider.setPointerCapture(e.pointerId);slider.focus({preventScroll:true});seekPointer(e);
+  });
+  listen(slider,'pointermove',e=>{if(timeDrag===e.pointerId)seekPointer(e);},{passive:true});
+  listen(slider,'pointerup',e=>{if(timeDrag===e.pointerId){timeDrag=null;slider.releasePointerCapture(e.pointerId);releaseSlider();}});
+  listen(slider,'pointercancel',()=>{if(timeDrag!==null){timeDrag=null;releaseSlider();}});
+  listen(slider,'lostpointercapture',()=>{if(timeDrag!==null){timeDrag=null;releaseSlider();}});
+  function jumpYear(year){stopRecording();yearMotion=null;now=performance.now();setYear(year);}
+  listen(slider,'keydown',e=>{
+    const direction=['ArrowRight','ArrowUp'].includes(e.key)?1:['ArrowLeft','ArrowDown'].includes(e.key)?-1:0;
+    if(!direction&&!['Home','End'].includes(e.key))return;
+    e.preventDefault();unlockAudio();
+    let year=Math.round(state.year)+direction;
+    if(e.key==='Home')year=2004;else if(e.key==='End')year=2026;
+    else if(e.shiftKey)year=direction>0?(YEARS.find(y=>y>state.year+.01)??2026):([...YEARS].reverse().find(y=>y<state.year-.01)??2004);
+    jumpYear(year);
+  });
+
+  // ---- Recording loop (R) -----------------------------------------------------------
+  const recordingData={year:2004};
+  function resetLoop() {
+    state.liked=false;state.count=41;state.flood=0;state.pressure=0;state.s=1;state.sv=0;state.q=0;state.qv=0;
+    press=null;springMode=null;floodMotion=null;bounce=null;sweep=null;burst=null;yearMotion=null;reducedFade=null;renderedEra=0;
+    op(el.ring,0);op(like.firstElementChild,1);
+    for(const text of countTexts)text.textContent='41';
+    digits26.forEach((d,i)=>{d.old.textContent=d.next.textContent='41'[i];d.start=-Infinity;});
+    like.setAttribute('aria-pressed','false');like.setAttribute('aria-label','Like, 41');
+    recordingData.year=2004;setYear(2004,false);lastT=NaN;
+  }
+  window.likeClockReady=()=>{if(window.gsap){window.gsap.ticker.remove(window.gsap.updateRoot);window.gsap.ticker.sleep();}};
+  window.likeClockUnavailable=()=>{status.textContent='Recording library could not load. The like and timeline still work. Reload to retry.';};
+  function startRecording() {
+    if(state.recording){stopRecording();return;}
+    if(!window.gsap){window.likeClockUnavailable();return;}
+    unlockAudio();now=performance.now();ticking=true;resetLoop();recordClock=0;recordCycle=0;
+    const gsap=window.gsap;gsap.registerEase('likeInOut',ease.inOut);
+    // Only numeric choreography lives in GSAP; the sole rAF owns its clock.
+    gsap.globalTimeline.time(0,true);gsap.globalTimeline.startTime(0);
+    recording=gsap.timeline({repeat:-1,defaults:{ease:'likeInOut'}});
+    recording.startTime(0);
+    const tap=at=>{recording.call(()=>pressStart('recording'),[],at);recording.call(()=>pressEnd(true),[],at+.085);};
+    tap(.5);tap(1.15);                                               // 2004: +1, then back. Flat.
+    recording.to(recordingData,{year:2007,duration:1.3},1.7);        // pause: the plus has become a star
+    recording.to(recordingData,{year:2010,duration:.8},3.65);
+    tap(4.95);tap(5.6);                                              // star: bounce and gloss, then reverse
+    recording.to(recordingData,{year:2014,duration:1.05},6.05);      // pause: flat era, ghost button, line star
+    recording.to(recordingData,{year:2026,duration:1.45},7.8);       // star becomes heart, heart grows
+    recording.call(()=>pressStart('recording'),[],9.6);              // the long hold
+    recording.call(()=>pressEnd(true),[],10.2);                      // pop
+    tap(11);tap(11.7);                                               // unlike, then a quick tap like
+    recording.to(recordingData,{year:2004,duration:1.7},12.7);       // wind home, still liked
+    tap(14.75);                                                      // flat unlike closes the loop
+    recording.to({},{duration:LOOP-14.75},14.75);
+    gsap.ticker.sleep();state.recording=true;frame.classList.add('recording');ticking=false;
+    $('#record').setAttribute('aria-pressed','true');$('#record-text').textContent='Stop loop';
+    status.textContent='Recording loop playing. 15.4 seconds. Press R to stop.';
+    wake();
+  }
+  function toggleHidden() {
+    hidden=!hidden;frame.classList.toggle('controls-hidden',hidden);
+    $('.timeline').inert=hidden;$('.toolbar').inert=hidden;
+    if(hidden)like.focus({preventScroll:true});
+  }
+  function toggleMute() {
+    state.muted=!state.muted;if(!state.muted)unlockAudio();
+    if(master&&audio)master.gain.setTargetAtTime(state.muted?0:.45,audio.currentTime,.005);
+    $('#mute').setAttribute('aria-pressed',String(state.muted));
+    $('#mute').setAttribute('aria-label',state.muted?'Unmute sound':'Mute sound');
+    $('#mute-text').textContent=state.muted?'Sound off':'Sound on';
+  }
+  listen($('#record'),'click',startRecording);listen($('#hide'),'click',toggleHidden);listen($('#mute'),'click',toggleMute);
+  listen(document,'keydown',e=>{
+    if(e.altKey||e.ctrlKey||e.metaKey||e.repeat)return;
+    const key=e.key.toLowerCase();
+    if(key==='r'){e.preventDefault();startRecording();}
+    if(key==='h'){e.preventDefault();toggleHidden();}
+    if(key==='m'){e.preventDefault();toggleMute();}
+    if(key==='escape'){stopRecording();if(hidden)toggleHidden();}
+    if(['1','2','3'].includes(key)){unlockAudio();jumpYear(YEARS[Number(key)-1]);}
+  });
+  listen(reducedQuery,'change',e=>{
+    state.reduced=e.matches;renderedEra=eraOf(yearToT(state.year));reducedFade=null;
+    springMode=null;state.s=1;state.sv=0;state.q=0;state.qv=0;bounce=sweep=burst=null;
+    op(el.ring,0);op(like.firstElementChild,1);lastT=NaN;wake();
+  });
+  listen(document,'visibilitychange',()=>{
+    if(document.hidden){cancelAnimationFrame(raf);raf=0;void audio?.suspend();}
+    else{if(!state.muted)void audio?.resume().catch(()=>{});wake();}
+  });
+  const observer=new ResizeObserver(measure);observer.observe(frame);
+  listen(window,'pagehide',e=>{
+    cancelAnimationFrame(raf);raf=0;void audio?.suspend();
+    if(!e.persisted){
+      disposed=true;ac.abort();observer.disconnect();recording?.kill();void audio?.close();window.gsap?.ticker.sleep();
+      if(window.cancelIdleCallback)cancelIdleCallback(audioWarmup);else clearTimeout(audioWarmup);
+    }
+  });
+  listen(window,'pageshow',()=>{if(!disposed)wake();});
+  // The HTML already holds the 2004 frame; this pass only refines it before first paint.
+  measure();now=performance.now();render();renderControls();
+  window.likeClockReady?.();
+  const warmAudio=()=>{if(!disposed&&!document.hidden)prepareAudio(true);};
+  audioWarmup=window.requestIdleCallback?requestIdleCallback(warmAudio,{timeout:1200}):setTimeout(warmAudio,600);
+  window.likeStudy={state,tokens:D,yearToT,anatomy,glyphRadii:t=>Array.from(glyphRadii(t,new Float64Array(N))),setYear:y=>jumpYear(y),toggle:()=>toggleLike(0)};
+})();
+</script>
+</body>
+</html>
