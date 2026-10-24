@@ -42,6 +42,22 @@ the focused switch. `1` / `2` / `3` select eras.
 uses a 150 ms fade through a single object, with no geometric morph or stretch.
 Sound requires a user gesture, and vibration depends on browser/device support.
 
+## Episode 03: The Life of a Like
+
+Open [http://127.0.0.1:3048/like](http://127.0.0.1:3048/like).
+The entire episode is in [`public/like/index.html`](public/like/index.html), built
+the same way as Episode 02.
+
+One like control morphs from a 2004 `+1 (41)` text link, through a 2010 glossy star
+button, to a 2026 heart. The glyph is one path. Each shape is a radius at 720 fixed
+angles around one origin, so no mid-morph frame can self-intersect. The slider rests
+only on whole years, and every crossfade between layers falls between two years.
+
+In 2026, press and hold to squash the heart, then release to pop it. Holding Space
+does the same from the keyboard, and Enter taps. `R` plays the 15.4-second loop;
+`H`, `M`, `Escape` and `1` / `2` / `3` work as in Episode 02. Reduced motion
+switches eras with a 150 ms fade, and liking only crossfades colour and fill.
+
 ## Controls
 
 | Input | Action |
